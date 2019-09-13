@@ -1,0 +1,18 @@
+name: Run tests
+
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1.0.0
+      - name: "Set up Julia"
+        uses: julia-actions/setup-julia@v0.2
+        with:
+          version: 1.2.0
+      - name: "Run ExercismTestReports tests"
+        run: |
+          cd ExercismTestReports
+          julia --project=@. -e "using Pkg; Pkg.instantiate();"
+          julia --project=@. -e "using Pkg; Pkg.test(\"ExercismTestReports\");"
