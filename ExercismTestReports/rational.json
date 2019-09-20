@@ -1,0 +1,75 @@
+{
+    "status": "pass",
+    "tests": [
+        {
+            "name": "rational-numbers → One- & Zero-elements",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "Arithmetic → Addition",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "Arithmetic → Subtraction",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "Arithmetic → Multiplication",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "Exponentiation → Exponentiation of a rational number",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "Exponentiation → Exponentiation of a real number to a rational number",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "Arithmetic → Exponentiation",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "Arithmetic → Division",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "rational-numbers → Arithmetic",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "rational-numbers → Absolute value",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "rational-numbers → Reduction to lowest terms",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "rational-numbers → Ordering",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "rational-numbers → Showing RationalNumbers",
+            "status": "pass",
+            "message": null
+        },
+        {
+            "name": "blubb → rational-numbers",
+            "status": "pass",
+            "message": null
+        }
+    ]
+}
