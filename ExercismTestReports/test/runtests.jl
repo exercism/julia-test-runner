@@ -21,7 +21,7 @@ replace_paths(s) = replace(s, r"(?>\/[a-zA-Z\-0-9\_\.]+)+\/" => "{{DIR}}/")
 
 # Overwrite the called ReferenceTests.test_reference method with one that replaces directories
 # This is super hacky but it's unlikely this package will be used in any context that isn't an Exercism test-runner, so it shouldn't cause any issues
-# A better way would be defining a new FileIO format, FileIO loaders/savers for it and then creating a new handler that dispatches on the new handler
+# A better way would be defining a new FileIO format, FileIO loaders/savers for it and then creating a new handler that dispatches on the new format
 function ReferenceTests.test_reference(file::FileIO.File{FileIO.format"TXT"}, actual; render = ReferenceTests.Diff())
     # Open file and replace dirs
     orig = read(file.filename, String)
