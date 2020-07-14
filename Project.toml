@@ -1,2 +1,20 @@
+name = "ExercismTestReports"
+uuid = "7236a586-7a51-4683-88ea-7abd70ff61e6"
+authors = ["Sascha Mann <git@mail.saschamann.eu>", "Exercism", "Contributors"]
+version = "0.1.0"
+
 [deps]
-ExercismTestReports = "1eb284b9-8d61-4029-9486-1e2b9e72c2ed"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+Suppressor = "fd094767-a336-5f1f-9728-57cf17d0bbfb"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+Suppressor = "0.2"
+julia = "1.4"
+JSON = "0.21"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

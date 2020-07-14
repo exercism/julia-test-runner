@@ -11,14 +11,6 @@ uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 deps = ["Random", "Serialization", "Sockets"]
 uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 
-[[ExercismTestReports]]
-deps = ["JSON", "Test"]
-git-tree-sha1 = "b11a775ebc06cccdedb4d5202bff6ebf252264eb"
-repo-rev = "master"
-repo-url = "https://github.com/exercism/ExercismTestReports.jl"
-uuid = "1eb284b9-8d61-4029-9486-1e2b9e72c2ed"
-version = "0.1.0-DEV"
-
 [[InteractiveUtils]]
 deps = ["Markdown"]
 uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
@@ -58,6 +50,11 @@ uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 
 [[Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
+
+[[Suppressor]]
+git-tree-sha1 = "a819d77f31f83e5792a76081eee1ea6342ab8787"
+uuid = "fd094767-a336-5f1f-9728-57cf17d0bbfb"
+version = "0.2.0"
 
 [[Test]]
 deps = ["Distributed", "InteractiveUtils", "Logging", "Random"]

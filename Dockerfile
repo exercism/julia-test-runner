@@ -7,6 +7,7 @@ COPY run.sh /opt/test-runner/bin/
 COPY run.jl /opt/test-runner/
 
 # Install Julia dependencies
+COPY src/ ./src/
 COPY Manifest.toml ./
 COPY Project.toml ./
 RUN julia --project -e 'using Pkg; Pkg.instantiate()'
