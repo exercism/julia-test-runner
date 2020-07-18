@@ -1,0 +1,24 @@
+{
+    "status": "pass",
+    "message": null,
+    "tests": [
+        {
+            "name": "first test",
+            "status": "pass",
+            "message": null,
+            "output": ""
+        },
+        {
+            "name": "second test",
+            "status": "pass",
+            "message": null,
+            "output": ""
+        },
+        {
+            "name": "third test",
+            "status": "pass",
+            "message": null,
+            "output": ""
+        }
+    ]
+}

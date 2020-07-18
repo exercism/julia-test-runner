@@ -1,0 +1,24 @@
+{
+    "status": "fail",
+    "message": null,
+    "tests": [
+        {
+            "name": "first test",
+            "status": "pass",
+            "message": null,
+            "output": ""
+        },
+        {
+            "name": "second test",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:9\n  Expression: x == 1\n   Evaluated: 2 == 1",
+            "output": ""
+        },
+        {
+            "name": "third test",
+            "status": "pass",
+            "message": null,
+            "output": ""
+        }
+    ]
+}
