@@ -13,9 +13,13 @@ COPY Project.toml ./
 # PackageSpec requires a git repo
 COPY .git/ ./.git/
 
+# Prepare precompiliation files
+COPY precompile_execution_file.jl ./precompile_execution_file.jl
+COPY test/fixtures/everything_at_once/runtests.jl ./test/fixtures/everything_at_once/runtests.jl
+
 # Compile sysimage
 RUN julia --project=build-env -e 'using Pkg; Pkg.add("PackageCompiler"); Pkg.add(PackageSpec(path="."))'
-RUN julia --project=build-env -e 'using PackageCompiler; create_sysimage(:ExercismTestReports; sysimage_path = "test-runner-sysimage.so")'
+RUN julia --project=build-env -e 'using PackageCompiler; create_sysimage(:ExercismTestReports; sysimage_path = "test-runner-sysimage.so", precompile_execution_file="precompile_execution_file.jl")'
 
 FROM julia:1.4.2
 
