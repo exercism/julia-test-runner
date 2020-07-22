@@ -6,19 +6,19 @@
             "name": "first test",
             "status": "pass",
             "message": null,
-            "output": ""
+            "output": null
         },
         {
             "name": "second test",
             "status": "pass",
             "message": null,
-            "output": ""
+            "output": null
         },
         {
             "name": "third test",
             "status": "pass",
             "message": null,
-            "output": ""
+            "output": null
         }
     ]
 }

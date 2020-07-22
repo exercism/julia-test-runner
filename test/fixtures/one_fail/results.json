@@ -6,19 +6,19 @@
             "name": "first test",
             "status": "pass",
             "message": null,
-            "output": ""
+            "output": null
         },
         {
             "name": "second test",
             "status": "fail",
             "message": "Test Failed at ./runtests.jl:9\n  Expression: x == 1\n   Evaluated: 2 == 1",
-            "output": ""
+            "output": null
         },
         {
             "name": "third test",
             "status": "pass",
             "message": null,
-            "output": ""
+            "output": null
         }
     ]
 }

@@ -29,7 +29,7 @@ function tojson(output::String, ts::ReportingTestSet)
             "name" => s.description,
             "status" => status,
             "message" => message,
-            "output" => first(output, 500), # only show the first 500 characters
+            "output" => isempty(output) ? nothing : first(output, 500), # only show the first 500 characters
         ))
     end
 
