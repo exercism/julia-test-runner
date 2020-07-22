@@ -1,6 +1,6 @@
 {
     "status": "error",
-    "message": "\nStacktrace:\n [1] error(::String) at ./error.jl:33\n [2] top-level scope at ./runtests.jl:14\n [3] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Test/src/Test.jl:1113\n [4] top-level scope at ./runtests.jl:14\n",
+    "message": "\nStacktrace:\n [1] error(::String) at ./error.jl:33\n [2] top-level scope at ./runtests.jl:14\n [3] top-level scope at [...]/julia/stdlib/v1.4/Test/src/Test.jl:1113\n [4] top-level scope at ./runtests.jl:14\n",
     "tests": [
         {
             "name": "first test",
@@ -17,7 +17,7 @@
         {
             "name": "third test",
             "status": "error",
-            "message": "\nStacktrace:\n [1] error(::String) at ./error.jl:33\n [2] top-level scope at ./runtests.jl:14\n [3] top-level scope at /buildworker/worker/package_linux64/build/usr/share/julia/stdlib/v1.4/Test/src/Test.jl:1113\n [4] top-level scope at ./runtests.jl:14\n",
+            "message": "\nStacktrace:\n [1] error(::String) at ./error.jl:33\n [2] top-level scope at ./runtests.jl:14\n [3] top-level scope at [...]/julia/stdlib/v1.4/Test/src/Test.jl:1113\n [4] top-level scope at ./runtests.jl:14\n",
             "output": "x = 1\n"
         }
     ]
