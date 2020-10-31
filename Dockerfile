@@ -1,5 +1,4 @@
-# julia:1.4.2-alpine is not available and 1.5.0 is not stable yet.
-FROM julia:1.4.2
+FROM julia:1.5.2
 
 WORKDIR /opt/test-runner/
 
