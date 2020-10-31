@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Automated tests
+    runs-on: ubuntu-latest
+
+    # Change this to add or remove tests
+    env:
+      TESTS: all_passing,all_passing_with_debugging,everything_at_once,one_fail,one_passing,truncated_output
+      JULIA_NUM_THREADS: 2
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build image
+      run: docker build -t jtr-img .
+    
+    - name: Run test runners
+      shell: julia --color=yes --project {0}
+      run: |
+        const tests = split(ENV["TESTS"], ",")
+        @info "The following tests will be run:\n  - $(join(tests, "\n  - "))"
+
+        mkdir("results")
+
+        Threads.@threads for test in tests
+          @info "Running test: $test..."
+
+          # Create container
+          run(`docker create --name jtr-$test jtr-img irrelevant /tmp/ /tmp/`)
+
+          # Copy test file to container
+          run(`docker cp "test/fixtures/$test/runtests.jl" jtr-$test:/tmp/`)
+
+          # Start container to run the test runner
+          run(`docker start -a jtr-$test`)
+
+          # Copy result back to host
+          run(`docker cp jtr-$test:/tmp/results.json "results/$test.json"`)
+        end
+    
+    - name: Install Julia dependencies for comparing results
+      run: julia --project --color=yes -e "using Pkg; Pkg.instantiate()"
+    
+    - name: Compare created and expected results.json
+      shell: julia --color=yes --project {0}
+      run: |
+        using JSON
+        using Test
+
+        const tests = split(ENV["TESTS"], ",")
+
+        @testset "Compare results.json files" begin
+          @testset "$test" for test in tests
+              expected = JSON.parsefile(joinpath("test", "fixtures", "$test", "results.json"))
+              created = JSON.parsefile(joinpath("results", "$test.json"))
+
+              @test expected == created
+          end
+        end

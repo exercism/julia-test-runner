@@ -1,0 +1,24 @@
+{
+    "status": "error",
+    "message": "\nStacktrace:\n [1] error(::String) at ./error.jl:33\n [2] top-level scope at ./runtests.jl:14\n [3] top-level scope at [...]/julia/stdlib/v1.4/Test/src/Test.jl:1113\n [4] top-level scope at ./runtests.jl:14\n",
+    "tests": [
+        {
+            "name": "first test",
+            "status": "pass",
+            "message": null,
+            "output": "x = 1\n"
+        },
+        {
+            "name": "second test",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:10\n  Expression: 1 == 2\n   Evaluated: 1 == 2",
+            "output": "x = 1\n"
+        },
+        {
+            "name": "third test",
+            "status": "error",
+            "message": "\nStacktrace:\n [1] error(::String) at ./error.jl:33\n [2] top-level scope at ./runtests.jl:14\n [3] top-level scope at [...]/julia/stdlib/v1.4/Test/src/Test.jl:1113\n [4] top-level scope at ./runtests.jl:14\n",
+            "output": "x = 1\n"
+        }
+    ]
+}
