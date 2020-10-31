@@ -1,3 +1,3 @@
 #!/bin/sh
 
-julia --project run.jl "$1" "$2" "$3"
+julia --project --sysimage test-runner-sysimage.so run.jl "$1" "$2" "$3"
