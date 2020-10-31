@@ -1,5 +1,4 @@
-# julia:1.4.2-alpine is not available and 1.5.0 is not stable yet.
-FROM julia:1.4.2 AS build-sysimage
+FROM julia:1.5.2 AS build-sysimage
 
 WORKDIR /tmp/image-builder/
 
@@ -21,7 +20,7 @@ COPY test/fixtures/everything_at_once/runtests.jl ./test/fixtures/everything_at_
 RUN julia --project=build-env -e 'using Pkg; Pkg.add("PackageCompiler"); Pkg.add(PackageSpec(path="."))'
 RUN julia --project=build-env -e 'using PackageCompiler; create_sysimage(:ExercismTestReports; sysimage_path = "test-runner-sysimage.so", precompile_execution_file="precompile_execution_file.jl")'
 
-FROM julia:1.4.2
+FROM julia:1.5.2
 
 WORKDIR /opt/test-runner/
 
