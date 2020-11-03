@@ -15,6 +15,9 @@ jobs:
       JULIA_NUM_THREADS: 2
 
     steps:
+    - name: Disable GHA commands
+      run: echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
+          
     - uses: actions/checkout@v2
 
     - name: Build image
@@ -25,6 +28,8 @@ jobs:
       run: |
         const tests = split(ENV["TESTS"], ",")
         @info "The following tests will be run:\n  - $(join(tests, "\n  - "))"
+
+        println("::add-mask::Mona The Octocat") # testing
 
         mkdir("results")
 
