@@ -1,6 +1,6 @@
 {
     "status": "error",
-    "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:33\n [2] macro expansion\n   @ ./runtests.jl:14 [inlined]\n [3] macro expansion\n   @ [...]/julia/stdlib/v1.6/Test/src/Test.jl:1147 [inlined]\n [4] top-level scope\n   @ ./runtests.jl:14",
+    "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:33\n [2] macro expansion\n   @ ./runtests.jl:14 [inlined]\n [3] macro expansion\n   @ [...]/julia/stdlib/v1.6/Test/src/Test.jl:1151 [inlined]\n [4] top-level scope\n   @ ./runtests.jl:14",
     "tests": [
         {
             "name": "first test",
@@ -17,7 +17,7 @@
         {
             "name": "third test",
             "status": "error",
-            "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:33\n [2] macro expansion\n   @ ./runtests.jl:14 [inlined]\n [3] macro expansion\n   @ [...]/julia/stdlib/v1.6/Test/src/Test.jl:1147 [inlined]\n [4] top-level scope\n   @ ./runtests.jl:14",
+            "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:33\n [2] macro expansion\n   @ ./runtests.jl:14 [inlined]\n [3] macro expansion\n   @ [...]/julia/stdlib/v1.6/Test/src/Test.jl:1151 [inlined]\n [4] top-level scope\n   @ ./runtests.jl:14",
             "output": "x = 1\n"
         }
     ]
