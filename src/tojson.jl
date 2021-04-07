@@ -48,6 +48,7 @@ function tojson(output::String, ts::ReportingTestSet)
     end
     
     JSON.json(Dict(
+        "version" => 2,
         "status" => status,
         "message" => message,
         "tests" => tests,
