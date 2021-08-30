@@ -47,6 +47,7 @@ For more information, check the reference:
 
 https://github.com/exercism/docs/blob/main/building/tooling/test-runners/interface.md
 """
+# TODO: Capture output per-test
 function tojson(output::String, ts::ReportingTestSet)
     if length(ts.results) == 1 && ts.results[1] isa Test.Error
         # There has been a syntax error or similar and no tests have run.
@@ -59,7 +60,21 @@ function tojson(output::String, ts::ReportingTestSet)
         ), 4)
     end
 
+    "Rules say we truncate with a warning message or emit an error if output is too long"
+    function truncate_output(output)
+        truncation_message = "Output was truncated. Please limit to 500 chars\n\n"
+        if isempty(output)
+            nothing
+        elseif length(output) > 500
+            truncation_message * first(output, 500 - length(truncation_message))
+        else
+            output
+        end
+    end
+
+    # Flag set in walk!(), used for top-level status property
     any_failed = false
+    output = truncate_output(output)
 
     """
         walk!(prefix, tests, testset)
@@ -104,7 +119,7 @@ function tojson(output::String, ts::ReportingTestSet)
                 "status" => status,
                 "message" => message,
                 "test_code" => test_code,
-                "output" => isempty(output) ? nothing : first(output, 500), # only show the first 500 characters
+                "output" => output,
             ))))
         end
 
