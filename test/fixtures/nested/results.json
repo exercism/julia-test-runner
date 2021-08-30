@@ -3,11 +3,11 @@
     "version": 2,
     "tests": [
         {
-            "name": "outer » inner 1",
+            "name": "outer » inner 1.1",
             "status": "pass"
         },
         {
-            "name": "outer » inner 1 (test 2)",
+            "name": "outer » inner 1.2",
             "test_code": "@test 1 == 2",
             "status": "fail",
             "message": "Test Failed at ./runtests.jl:8\n  Expression: 1 == 2\n   Evaluated: 1 == 2"
@@ -25,17 +25,17 @@
             "message": "Test Failed at ./runtests.jl:20\n  Expression: 5 == 6\n   Evaluated: 5 == 6"
         },
         {
-            "name": "outer 2 (test 2)",
+            "name": "outer 2",
             "status": "pass"
         },
         {
-            "name": "outer 3",
+            "name": "outer 3.1",
             "test_code": "@test error(\"\")",
             "status": "error",
             "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:33\n [2] macro expansion\n   @ ./runtests.jl:28 [inlined]\n [3] macro expansion\n   @ [...]/julia/stdlib/v1.6/Test/src/Test.jl:1151 [inlined]\n [4] top-level scope\n   @ ./runtests.jl:28"
         },
         {
-            "name": "outer 3 (test 2)",
+            "name": "outer 3.2",
             "status": "pass"
         },
         {
