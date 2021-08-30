@@ -70,6 +70,9 @@ function tojson(output::String, ts::ReportingTestSet)
     function walk!(tests, prefix, testset)
         name = isempty(prefix) ? testset.description : "$prefix » $(testset.description)"
 
+        # Should we number the tests?
+        number_tests = count(x -> x isa Test.Result, testset.results) > 1
+
         for (n, result) in enumerate(testset.results)
             status = nothing
             message = nothing
@@ -97,7 +100,7 @@ function tojson(output::String, ts::ReportingTestSet)
             any_failed = any_failed || status in ("fail", "error")
 
             push!(tests, Dict(filter( ((k, v),) -> !isnothing(v), (
-                "name" => n == 1 ? name : "$name (test $n)",
+                "name" => number_tests ? "$name.$n" : name,
                 "status" => status,
                 "message" => message,
                 "test_code" => test_code,
