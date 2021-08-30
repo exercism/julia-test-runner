@@ -1,18 +1,15 @@
 {
-    "version": 2,
     "status": "pass",
-    "message": null,
+    "version": 2,
     "tests": [
         {
             "name": "first test",
             "status": "pass",
-            "message": null,
             "output": "x = 1\nI'M HERE!\n"
         },
         {
             "name": "second test",
             "status": "pass",
-            "message": null,
             "output": "x = 1\nI'M HERE!\n"
         }
     ]

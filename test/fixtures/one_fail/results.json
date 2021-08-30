@@ -1,25 +1,20 @@
 {
-    "version": 2,
     "status": "fail",
-    "message": null,
+    "version": 2,
     "tests": [
         {
             "name": "first test",
-            "status": "pass",
-            "message": null,
-            "output": null
+            "status": "pass"
         },
         {
             "name": "second test",
+            "test_code": "@test x == 1",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:9\n  Expression: x == 1\n   Evaluated: 2 == 1",
-            "output": null
+            "message": "Test Failed at ./runtests.jl:9\n  Expression: x == 1\n   Evaluated: 2 == 1"
         },
         {
             "name": "third test",
-            "status": "pass",
-            "message": null,
-            "output": null
+            "status": "pass"
         }
     ]
 }

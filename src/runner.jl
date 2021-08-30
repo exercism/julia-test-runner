@@ -10,7 +10,7 @@ Returns the output and ReportingTestSet.
 function runtests(testfile)
     # The Suppressor macro wraps everything in a try...finally block, therefore rts needs to be introduced before
     local rts
-    output = @capture_out rts = @testset ReportingTestSet "Wrapper Test" begin
+    output = @capture_out rts = @testset ReportingTestSet "" begin
         include(testfile)
     end
 
