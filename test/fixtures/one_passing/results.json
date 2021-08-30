@@ -1,13 +1,10 @@
 {
-    "version": 2,
     "status": "pass",
-    "message": null,
+    "version": 2,
     "tests": [
         {
             "name": "first test",
-            "status": "pass",
-            "message": null,
-            "output": null
+            "status": "pass"
         }
     ]
 }

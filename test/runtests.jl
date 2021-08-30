@@ -1,5 +1,4 @@
 using ExercismTestReports
-using JSON
 using Test
 
 # When running tests on this project, the solution_dir path is likely to be
@@ -14,13 +13,20 @@ const TMP_FIXTURES = joinpath(TEMPDIR, "fixtures")
 
 @testset for fixture in readdir(TMP_FIXTURES)
     results = test_runner("", "$TMP_FIXTURES/$fixture/")
-    d1 = JSON.parse(results)
     reference = "$FIXTURES/$fixture/results.json"
     if isfile(reference)
-        d2 = JSON.parsefile(reference)
-        @test d1 == d2
+        ref = read(reference, String)
+        if ref != results
+            @test false
+            try
+                run(pipeline(`diff $reference /dev/stdin`; stdin=IOBuffer(results)))
+            catch
+            end
+        else
+            @test true
+        end
     else
-        write(reference, JSON.json(d1, 4))
+        write(reference, results)
         @test_skip nothing
     end
 end
