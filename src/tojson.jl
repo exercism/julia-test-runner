@@ -114,7 +114,7 @@ function tojson(output::String, ts::ReportingTestSet)
                 end
                 # TODO: In the future we might have a new `status = skip`
                 message = string(result)
-                test_code = result.test_type === :skipped ? "@test_skip " : "@test "
+                test_code = result.test_type === :skipped ? "@test_skip " : "@test_broken "
                 test_code *= string(result.orig_expr)
             elseif result isa Test.AbstractTestSet
                 # Descend into nested test sets
