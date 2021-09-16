@@ -1,0 +1,12 @@
+{
+    "status": "fail",
+    "version": 2,
+    "tests": [
+        {
+            "name": "",
+            "test_code": "@test_log nothing",
+            "status": "fail",
+            "message": "Log Test Failed at ./runtests.jl:3\n  Expression: nothing\n  Log Pattern: (:info, \"Blabla\")\n  Captured Logs: \n"
+        }
+    ]
+}

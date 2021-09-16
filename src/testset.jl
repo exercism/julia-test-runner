@@ -12,7 +12,7 @@
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import Test: AbstractTestSet, Broken, Pass, Fail, Error
+import Test: AbstractTestSet, Broken, Pass, Fail, Error, LogTestFailure
 import Test: record, finish, scrub_backtrace, get_testset_depth, get_testset
 
 mutable struct ReportingTestSet <: AbstractTestSet
@@ -22,7 +22,8 @@ end
 ReportingTestSet(desc) = ReportingTestSet(desc, [])
 
 # Store _all_ results
-record(ts::ReportingTestSet, t::Union{Fail, Error, Broken, Pass}) = (push!(ts.results, t); t)
+record(ts::ReportingTestSet, t::Union{Fail, Error, Broken, Pass, LogTestFailure}) =
+    (push!(ts.results, t); t)
 
 # When a ReportingTestSet finishes, it records itself to its parent
 # testset, if there is one. This allows for recursive printing of
