@@ -104,6 +104,11 @@ function tojson(output::String, ts::ReportingTestSet)
                 status = "error"
                 message = result.backtrace
                 test_code = "@test " * result.orig_expr
+            elseif result isa Test.Broken
+                status = "fail"
+                message = string(result)
+                test_code = result.test_type === :skipped ? "@test_skip " : "@test "
+                test_code *= string(result.orig_expr)
             elseif result isa Test.AbstractTestSet
                 # Descend into nested test sets
                 child_has_failed = walk!(tests, name, result)
