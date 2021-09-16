@@ -1,0 +1,12 @@
+{
+    "status": "fail",
+    "version": 2,
+    "tests": [
+        {
+            "name": "An extra exercise",
+            "test_code": "@test_skip 5 == 1",
+            "status": "fail",
+            "message": "Test Broken\n  Skipped: 5 == 1"
+        }
+    ]
+}
