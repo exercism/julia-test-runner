@@ -109,7 +109,10 @@ function tojson(output::String, ts::ReportingTestSet)
                 message = result.backtrace
                 test_code = "@test " * result.orig_expr
             elseif result isa Test.Broken
-                status = "fail"
+                if result.test_type === :skipped
+                    continue
+                end
+                # TODO: In the future we might have a new `status = skip`
                 message = string(result)
                 test_code = result.test_type === :skipped ? "@test_skip " : "@test "
                 test_code *= string(result.orig_expr)
