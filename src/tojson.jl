@@ -103,7 +103,7 @@ function tojson(output::String, ts::ReportingTestSet)
             elseif result isa Test.LogTestFailure
                 status = "fail"
                 message = string(result)
-                test_code = "@test_log " * string(result.orig_expr)
+                test_code = "@test_logs $(join(result.patterns, ' ')) $(result.orig_expr)"
             elseif result isa Test.Error
                 status = "error"
                 message = result.backtrace
