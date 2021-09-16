@@ -1,5 +1,6 @@
 using ExercismTestReports
 using Test
+import InteractiveUtils
 
 # When running tests on this project, the solution_dir path is likely to be
 # in our home directory, which Julia prints differently, so we copy all the
@@ -12,7 +13,7 @@ cp(FIXTURES, joinpath(TEMPDIR, "fixtures"))
 const TMP_FIXTURES = joinpath(TEMPDIR, "fixtures")
 
 @testset "All possible test result types are covered" begin
-    @test Set(subtypes(Test.Result)) == Set([
+    @test Set(InteractiveUtils.subtypes(Test.Result)) == Set([
         Test.Pass, Test.Error, Test.LogTestFailure, Test.Broken, Test.Fail
     ])
 end
