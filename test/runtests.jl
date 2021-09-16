@@ -11,6 +11,12 @@ const TEMPDIR = mktempdir()
 cp(FIXTURES, joinpath(TEMPDIR, "fixtures"))
 const TMP_FIXTURES = joinpath(TEMPDIR, "fixtures")
 
+@testset "All possible test result types are covered" begin
+    @test Set(subtypes(Test.Result)) == Set([
+        Test.Pass, Test.Error, Test.LogTestFailure, Test.Broken, Test.Fail
+    ])
+end
+
 @testset for fixture in readdir(TMP_FIXTURES)
     results = test_runner("", "$TMP_FIXTURES/$fixture/")
     reference = "$FIXTURES/$fixture/results.json"

@@ -100,6 +100,10 @@ function tojson(output::String, ts::ReportingTestSet)
                 status = "fail"
                 message = string(result)
                 test_code = "@test " * result.orig_expr
+            elseif result isa Test.LogTestFailure
+                status = "fail"
+                message = string(result)
+                test_code = "@test_log " * string(result.orig_expr)
             elseif result isa Test.Error
                 status = "error"
                 message = result.backtrace
