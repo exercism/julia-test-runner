@@ -1,5 +1,5 @@
 # This file is required for PackageCompiler
-# See https://julialang.github.io/PackageCompiler.jl/dev/sysimages/#tracing-1 for more info
+# See https://julialang.github.io/PackageCompiler.jl/dev/sysimages.html#tracing for more info
 
 using ExercismTestReports
 
