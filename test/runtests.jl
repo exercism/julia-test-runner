@@ -20,6 +20,12 @@ end
 
 @testset for fixture in readdir(TMP_FIXTURES)
     results = test_runner("", "$TMP_FIXTURES/$fixture/")
+    if endswith(fixture, "syntax_error")
+        # Substitute prefix with local file name in stack trace
+        HOME_PREFIX = joinpath("~", relpath(pkgdir(ExercismTestReports), homedir()))
+        TEST_PREFIX = "~/projects/exercism/repos/julia-test-runner"
+        results = replace(results, HOME_PREFIX => TEST_PREFIX)
+    end
     reference = "$FIXTURES/$fixture/results.json"
     if isfile(reference)
         ref = read(reference, String)
