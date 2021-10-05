@@ -22,7 +22,7 @@ end
     results = test_runner("", "$TMP_FIXTURES/$fixture/")
     if endswith(fixture, "syntax_error")
         # Substitute prefix with local file name in stack trace
-        HOME_PREFIX = joinpath("~", relpath(pkgdir(ExercismTestReports), homedir()))
+        HOME_PREFIX = Base.contractuser(pkgdir(ExercismTestReports))
         TEST_PREFIX = "~/projects/exercism/repos/julia-test-runner"
         results = replace(results, HOME_PREFIX => TEST_PREFIX)
     end
