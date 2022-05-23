@@ -32,7 +32,7 @@
             "name": "outer 3.1",
             "test_code": "@test error(\"\")",
             "status": "error",
-            "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:33\n [2] macro expansion\n   @ ./runtests.jl:28 [inlined]\n [3] macro expansion\n   @ [...]/julia/stdlib/v1.7/Test/src/Test.jl:1283 [inlined]\n [4] top-level scope\n   @ ./runtests.jl:28"
+            "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:33\n [2] macro expansion\n   @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:445 [inlined]\n [3] macro expansion\n   @ ./runtests.jl:28 [inlined]\n [4] macro expansion\n   @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:1283 [inlined]\n [5] top-level scope\n   @ ./runtests.jl:28"
         },
         {
             "name": "outer 3.2",
