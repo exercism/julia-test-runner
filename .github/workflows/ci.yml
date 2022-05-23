@@ -14,7 +14,7 @@ jobs:
 
     # Change this to add or remove tests
     env:
-      TESTS: all_passing,all_passing_with_debugging,everything_at_once,one_fail,one_passing,truncated_output
+      TESTS: all_passing,all_passing_with_debugging,everything_at_once,one_fail,one_passing,truncated_output,grains,complex-numbers
       JULIA_NUM_THREADS: 2
 
     steps:
@@ -61,10 +61,22 @@ jobs:
 
         const tests = split(ENV["TESTS"], ",")
 
+        # Shorten the error messages so we don't need to care about specific paths, file numbers, etc.
+        function shorten_messages!(result)
+            if result["status"] == "error" && haskey(result, "message")
+                result["message"] = split(result["message"], '\n')[1]
+            end
+        end
+
         @testset "Compare results.json files" begin
           @testset "$test" for test in tests
               expected = JSON.parsefile(joinpath("test", "fixtures", "$test", "results.json"))
               created = JSON.parsefile(joinpath("results", "$test.json"))
+
+              shorten_messages!(expected)
+              shorten_messages!(created)
+              foreach(shorten_messages!, expected["tests"])
+              foreach(shorten_messages!, created["tests"])
 
               @test expected == created
           end
