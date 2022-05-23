@@ -168,10 +168,15 @@ function tojson(output::String, ts::ReportingTestSet)
 
         if collapse_passing_tests
             collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
+            if num_passing > MAX_REPORTED_FAILURES_PER_TESTSET
+                code = join(map(test_code, passing_tests[1:MAX_REPORTED_FAILURES_PER_TESTSET]), '\n') * "\n..."
+            else
+                code = join(map(test_code, passing_tests), '\n')
+            end
             push!(tests, Dict(
                 "name" => collapsed_name,
                 "status" => "pass",
-                "test_code" => join(map(test_code, passing_tests), '\n')
+                "test_code" => code,
             ))
         end
 
