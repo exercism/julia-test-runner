@@ -72,4 +72,8 @@ end
     @test ComplexNumber(1, 0)  == 1 + 0jm
     @test ComplexNumber(1, 1)  == 1 + 1jm
     @test ComplexNumber(-1, 0) == jm^2
+    # More failing tests to show that only the first MAX_REPORTED_FAILURES are actually reported
+    for _ in 1:100
+        @test false
+    end
 end
