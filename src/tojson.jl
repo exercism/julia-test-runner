@@ -2,6 +2,13 @@ using Test
 using JSON
 
 """
+Testsets with more than this number of tests will have all of their passing
+tests collapsed into a single report.
+"""
+const TEST_RESULT_COLLAPSE_THRESHOLD = 2
+const MAX_REPORTED_FAILURES_PER_TESTSET = 5
+
+"""
     tojson(output::String, ts::ReportingTestSet)
 
 Takes user output and a ReportingTestSet and converts it to a JSON string as
@@ -72,12 +79,60 @@ function tojson(output::String, ts::ReportingTestSet)
         end
     end
 
-    # Flag set in walk!(), used for top-level status property
+    # Flag set in push_result!(), used for top-level status property
     any_failed = false
+    # All stdout from the top level test set, used for all tests.
     output = truncate_output(output)
 
     """
-        walk!(prefix, tests, testset)
+        push_result!(tests, result, name)
+
+    Push a test result called `name` to `tests`. Returns the pushed Dict or `nothing` if the test was not pushed.
+    """
+    function push_result!(tests, result::Test.Result, name)
+        status = nothing
+        message = nothing
+        test_code = nothing
+
+        if result isa Test.Pass
+            status = "pass"
+        elseif result isa Test.Fail
+            status = "fail"
+            message = string(result)
+            test_code = "@test $(result.orig_expr)"
+        elseif result isa Test.LogTestFailure
+            status = "fail"
+            message = string(result)
+            test_code = "@test_logs $(join(result.patterns, ' ')) $(result.orig_expr)"
+        elseif result isa Test.Error
+            status = "error"
+            message = result.backtrace
+            test_code = "@test " * result.orig_expr
+        elseif result isa Test.Broken
+            if result.test_type === :skipped
+                return nothing
+            end
+            # TODO: In the future we might have a new `status = skip`
+            message = string(result)
+            test_code = result.test_type === :skipped ? "@test_skip " : "@test_broken "
+            test_code *= string(result.orig_expr)
+        else
+            error("Unknown testset.results item: $result")
+        end
+
+        any_failed = any_failed || status in ("fail", "error")
+
+        return push!(tests, Dict(filter( ((k, v),) -> !isnothing(v), (
+            "name" => name,
+            "status" => status,
+            "message" => message,
+            "test_code" => test_code,
+            "output" => output,
+        ))))
+    end
+
+    """
+        walk!(tests, prefix, testset)
 
     Walk the tree of testsets, pushing Dicts to `tests` describing each test
     result. Returns nothing.
@@ -85,56 +140,45 @@ function tojson(output::String, ts::ReportingTestSet)
     function walk!(tests, prefix, testset)
         name = isempty(prefix) ? testset.description : "$prefix » $(testset.description)"
 
-        # Should we number the tests?
-        number_tests = count(x -> x isa Test.Result, testset.results) > 1
+        num_results = count(x -> x isa Test.Result, testset.results)
 
-        for (n, result) in enumerate(testset.results)
-            status = nothing
-            message = nothing
-            test_code = nothing
-
-            if result isa Test.Pass
-                status = "pass"
-                message = nothing
-            elseif result isa Test.Fail
-                status = "fail"
-                message = string(result)
-                test_code = "@test " * result.orig_expr
-            elseif result isa Test.LogTestFailure
-                status = "fail"
-                message = string(result)
-                test_code = "@test_logs $(join(result.patterns, ' ')) $(result.orig_expr)"
-            elseif result isa Test.Error
-                status = "error"
-                message = result.backtrace
-                test_code = "@test " * result.orig_expr
-            elseif result isa Test.Broken
-                if result.test_type === :skipped
-                    continue
-                end
-                # TODO: In the future we might have a new `status = skip`
-                message = string(result)
-                test_code = result.test_type === :skipped ? "@test_skip " : "@test_broken "
-                test_code *= string(result.orig_expr)
-            elseif result isa Test.AbstractTestSet
-                # Descend into nested test sets
-                child_has_failed = walk!(tests, name, result)
-                continue
+        function test_name(result, idx)
+            if name == "" # Tests that aren't in a testset
+                string(result.orig_expr)
             else
-                error("Unknown testset.results item: $result")
+                # If there's more than one test in the testset, distinguish
+                # them with numbers.
+                num_results > 1 ? "$name.$idx" : name
             end
-
-            any_failed = any_failed || status in ("fail", "error")
-
-            push!(tests, Dict(filter( ((k, v),) -> !isnothing(v), (
-                "name" => number_tests ? "$name.$n" : name,
-                "status" => status,
-                "message" => message,
-                "test_code" => test_code,
-                "output" => output,
-            ))))
         end
 
+        # Should we collapse all passing tests into one report?
+        passing_tests = filter(x -> x isa Test.Pass, testset.results)
+        num_passing = length(passing_tests)
+        collapse_passing_tests = num_results >= TEST_RESULT_COLLAPSE_THRESHOLD && num_passing > 1 && name != ""
+
+        if collapse_passing_tests
+            collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
+            push!(tests, Dict(
+                "name" => collapsed_name,
+                "status" => "pass",
+            ))
+        end
+
+        # Push up to MAX_REPORTED_FAILURES_PER_TESTSET failing test results.
+        # Also recurse into any test sets and report passing test results if
+        # they weren't collapsed.
+        num_reported_failures = 0
+        for (n, result) in enumerate(testset.results)
+            if result isa Test.AbstractTestSet
+                walk!(tests, name, result)
+            elseif result isa Test.Pass
+                collapse_passing_tests || push_result!(tests, result, test_name(result, n))
+            else
+                num_reported_failures >= MAX_REPORTED_FAILURES_PER_TESTSET && continue
+                num_reported_failures += !isnothing(push_result!(tests, result, test_name(result, n)))
+            end
+        end
         return nothing
     end
 
