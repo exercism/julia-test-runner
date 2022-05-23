@@ -14,17 +14,17 @@
         },
         {
             "name": "Invalid values » Zero",
-            "test_code": "@test on_square(0)\n@test total_after(0)",
+            "test_code": "@test_throws DomainError on_square(0)\n@test_throws DomainError total_after(0)",
             "status": "pass"
         },
         {
             "name": "Invalid values » Negative",
-            "test_code": "@test on_square(-1)\n@test total_after(-1)",
+            "test_code": "@test_throws DomainError on_square(-1)\n@test_throws DomainError total_after(-1)",
             "status": "pass"
         },
         {
             "name": "Invalid values » Greater than 64",
-            "test_code": "@test on_square(65)\n@test total_after(65)",
+            "test_code": "@test_throws DomainError on_square(65)\n@test_throws DomainError total_after(65)",
             "status": "pass"
         }
     ]
