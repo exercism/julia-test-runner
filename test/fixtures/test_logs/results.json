@@ -3,7 +3,7 @@
     "version": 2,
     "tests": [
         {
-            "name": "",
+            "name": "nothing",
             "test_code": "@test_logs (:info, \"Blabla\") nothing",
             "status": "fail",
             "message": "Log Test Failed at ./runtests.jl:3\n  Expression: nothing\n  Log Pattern: (:info, \"Blabla\")\n  Captured Logs: \n"

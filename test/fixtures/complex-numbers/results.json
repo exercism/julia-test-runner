@@ -3,115 +3,43 @@
     "version": 2,
     "tests": [
         {
-            "name": ".1",
+            "name": "ComplexNumber <: Number",
             "status": "pass"
         },
         {
-            "name": ".2",
+            "name": "ComplexNumber(0, 1) ^ 2 == ComplexNumber(-1, 0)",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Addition.1",
+            "name": "Arithmetic » Addition",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Addition.2",
+            "name": "Arithmetic » Subtraction",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Addition.3",
+            "name": "Arithmetic » Multiplication",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Subtraction.1",
+            "name": "Arithmetic » Division",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Subtraction.2",
+            "name": "Absolute value",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Subtraction.3",
+            "name": "Complex conjugate",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Multiplication.1",
+            "name": "Real part",
             "status": "pass"
         },
         {
-            "name": "Arithmetic » Multiplication.2",
-            "status": "pass"
-        },
-        {
-            "name": "Arithmetic » Multiplication.3",
-            "status": "pass"
-        },
-        {
-            "name": "Arithmetic » Division.1",
-            "status": "pass"
-        },
-        {
-            "name": "Arithmetic » Division.2",
-            "status": "pass"
-        },
-        {
-            "name": "Arithmetic » Division.3",
-            "status": "pass"
-        },
-        {
-            "name": "Absolute value.1",
-            "status": "pass"
-        },
-        {
-            "name": "Absolute value.2",
-            "status": "pass"
-        },
-        {
-            "name": "Absolute value.3",
-            "status": "pass"
-        },
-        {
-            "name": "Absolute value.4",
-            "status": "pass"
-        },
-        {
-            "name": "Absolute value.5",
-            "status": "pass"
-        },
-        {
-            "name": "Complex conjugate.1",
-            "status": "pass"
-        },
-        {
-            "name": "Complex conjugate.2",
-            "status": "pass"
-        },
-        {
-            "name": "Complex conjugate.3",
-            "status": "pass"
-        },
-        {
-            "name": "Real part.1",
-            "status": "pass"
-        },
-        {
-            "name": "Real part.2",
-            "status": "pass"
-        },
-        {
-            "name": "Real part.3",
-            "status": "pass"
-        },
-        {
-            "name": "Imaginary part.1",
-            "status": "pass"
-        },
-        {
-            "name": "Imaginary part.2",
-            "status": "pass"
-        },
-        {
-            "name": "Imaginary part.3",
+            "name": "Imaginary part",
             "status": "pass"
         },
         {
@@ -139,7 +67,7 @@
             "message": "promotion of types Float64 and ExercismTestReports.ComplexNumber{Float64} failed to change any arguments\nStacktrace:\n  [1] error(::String, ::String, ::String)\n    @ Base ./error.jl:42\n  [2] sametype_error(input::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:374\n  [3] not_sametype(x::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}}, y::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:368\n  [4] promote\n    @ ./promotion.jl:351 [inlined]\n  [5] *(x::Float64, y::ExercismTestReports.ComplexNumber{Float64})\n    @ Base ./promotion.jl:380\n  [6] exp(x::ExercismTestReports.ComplexNumber{Float64})\n    @ ExercismTestReports ./complex-numbers.jl:53\n  [7] macro expansion\n    @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:445 [inlined]\n  [8] macro expansion\n    @ ./runtests.jl:66 [inlined]\n  [9] macro expansion\n    @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:1283 [inlined]\n [10] top-level scope\n    @ ./runtests.jl:63"
         },
         {
-            "name": "Syntax sugar jm.1",
+            "name": "Syntax sugar jm » 2 tests",
             "status": "pass"
         },
         {
@@ -153,10 +81,6 @@
             "test_code": "@test ComplexNumber(1, 1) == 1 + 1jm",
             "status": "error",
             "message": "promotion of types Int64 and ExercismTestReports.ComplexNumber{Bool} failed to change any arguments\nStacktrace:\n [1] error(::String, ::String, ::String)\n   @ Base ./error.jl:42\n [2] sametype_error(input::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:374\n [3] not_sametype(x::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}}, y::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:368\n [4] promote\n   @ ./promotion.jl:351 [inlined]\n [5] *(x::Int64, y::ExercismTestReports.ComplexNumber{Bool})\n   @ Base ./promotion.jl:380\n [6] macro expansion\n   @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:445 [inlined]\n [7] macro expansion\n   @ ./runtests.jl:73 [inlined]\n [8] macro expansion\n   @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:1283 [inlined]\n [9] top-level scope\n   @ ./runtests.jl:71"
-        },
-        {
-            "name": "Syntax sugar jm.4",
-            "status": "pass"
         }
     ]
 }
