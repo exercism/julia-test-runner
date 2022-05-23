@@ -96,6 +96,7 @@ function tojson(output::String, ts::ReportingTestSet)
 
         if result isa Test.Pass
             status = "pass"
+            test_code = "@test $(result.orig_expr)"
         elseif result isa Test.Fail
             status = "fail"
             message = string(result)
@@ -158,10 +159,12 @@ function tojson(output::String, ts::ReportingTestSet)
         collapse_passing_tests = num_results >= TEST_RESULT_COLLAPSE_THRESHOLD && num_passing > 1 && name != ""
 
         if collapse_passing_tests
+            test_code = join(("@test $(r.orig_expr)" for r in passing_tests), '\n')
             collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
             push!(tests, Dict(
                 "name" => collapsed_name,
                 "status" => "pass",
+                "test_code" => test_code
             ))
         end
 

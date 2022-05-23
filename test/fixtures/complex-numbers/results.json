@@ -4,42 +4,52 @@
     "tests": [
         {
             "name": "ComplexNumber <: Number",
+            "test_code": "@test ComplexNumber <: Number",
             "status": "pass"
         },
         {
             "name": "ComplexNumber(0, 1) ^ 2 == ComplexNumber(-1, 0)",
+            "test_code": "@test ComplexNumber(0, 1) ^ 2 == ComplexNumber(-1, 0)",
             "status": "pass"
         },
         {
             "name": "Arithmetic » Addition",
+            "test_code": "@test ComplexNumber(1, 0) + ComplexNumber(2, 0) == ComplexNumber(3, 0)\n@test ComplexNumber(0, 1) + ComplexNumber(0, 2) == ComplexNumber(0, 3)\n@test ComplexNumber(1, 2) + ComplexNumber(3, 4) == ComplexNumber(4, 6)",
             "status": "pass"
         },
         {
             "name": "Arithmetic » Subtraction",
+            "test_code": "@test ComplexNumber(1, 0) - ComplexNumber(2, 0) == ComplexNumber(-1, 0)\n@test ComplexNumber(0, 1) - ComplexNumber(0, 2) == ComplexNumber(0, -1)\n@test ComplexNumber(1, 2) - ComplexNumber(3, 4) == ComplexNumber(-2, -2)",
             "status": "pass"
         },
         {
             "name": "Arithmetic » Multiplication",
+            "test_code": "@test ComplexNumber(1, 0) * ComplexNumber(2, 0) == ComplexNumber(2, 0)\n@test ComplexNumber(0, 1) * ComplexNumber(0, 2) == ComplexNumber(-2, 0)\n@test ComplexNumber(1, 2) * ComplexNumber(3, 4) == ComplexNumber(-5, 10)",
             "status": "pass"
         },
         {
             "name": "Arithmetic » Division",
+            "test_code": "@test ComplexNumber(1, 0) / ComplexNumber(2, 0) == ComplexNumber(0.5, 0)\n@test ComplexNumber(0, 1) / ComplexNumber(0, 2) == ComplexNumber(0.5, 0)\n@test ComplexNumber(1, 2) / ComplexNumber(3, 4) ≈ ComplexNumber(0.44, 0.08)",
             "status": "pass"
         },
         {
             "name": "Absolute value",
+            "test_code": "@test abs(ComplexNumber(5, 0)) == 5\n@test abs(ComplexNumber(-5, 0)) == 5\n@test abs(ComplexNumber(0, 5)) == 5\n@test abs(ComplexNumber(0, -5)) == 5\n@test abs(ComplexNumber(3, 4)) == 5",
             "status": "pass"
         },
         {
             "name": "Complex conjugate",
+            "test_code": "@test conj(ComplexNumber(5.0, 0.0)) == ComplexNumber(5.0, 0.0)\n@test conj(ComplexNumber(0, 5)) == ComplexNumber(0, -5)\n@test conj(ComplexNumber(1, 1)) == ComplexNumber(1, -1)",
             "status": "pass"
         },
         {
             "name": "Real part",
+            "test_code": "@test real(ComplexNumber(1, 0)) == 1\n@test real(ComplexNumber(0, 1)) == 0\n@test real(ComplexNumber(1, 2)) == 1",
             "status": "pass"
         },
         {
             "name": "Imaginary part",
+            "test_code": "@test imag(ComplexNumber(1, 0)) == 0\n@test imag(ComplexNumber(0, 1)) == 1\n@test imag(ComplexNumber(1, 2)) == 2",
             "status": "pass"
         },
         {
@@ -68,6 +78,7 @@
         },
         {
             "name": "Syntax sugar jm » 2 tests",
+            "test_code": "@test ComplexNumber(0, 1) == jm\n@test ComplexNumber(-1, 0) == jm ^ 2",
             "status": "pass"
         },
         {

@@ -4,6 +4,7 @@
     "tests": [
         {
             "name": "outer » inner 1.1",
+            "test_code": "@test 1 == 1",
             "status": "pass"
         },
         {
@@ -26,6 +27,7 @@
         },
         {
             "name": "outer 2",
+            "test_code": "@test 1 == 1",
             "status": "pass"
         },
         {
@@ -36,6 +38,7 @@
         },
         {
             "name": "outer 3.2",
+            "test_code": "@test true",
             "status": "pass"
         },
         {
