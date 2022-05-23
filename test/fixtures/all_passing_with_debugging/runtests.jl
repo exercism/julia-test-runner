@@ -1,12 +1,18 @@
 using Test
 
+function f1(x)
+    @show x # debugging
+end
+
+function f2(x)
+    println("I'M HERE!")
+    x
+end
+
 @testset "first test" begin
-    x = 1
-    @show x # Debugging
-    @test x == 1
+    @test f1(1) == 1
 end
 
 @testset "second test" begin
-    println("I'M HERE!")
-    @test 2 == 2
+    @test f2(2) == 2
 end

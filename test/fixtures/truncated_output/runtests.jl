@@ -1,6 +1,6 @@
 using Test
 
 @testset "first test" begin
-    println("x"^5000)
-    @test 1 == 1
+    f(x) = (println("x"^5000); x)
+    @test f(1) == 1
 end

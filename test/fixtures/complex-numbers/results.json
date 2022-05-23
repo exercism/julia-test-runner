@@ -3,12 +3,12 @@
     "version": 2,
     "tests": [
         {
-            "name": "ComplexNumber <: Number",
+            "name": "$(Expr(:escape, :(ComplexNumber <: Number)))",
             "test_code": "@test ComplexNumber <: Number",
             "status": "pass"
         },
         {
-            "name": "ComplexNumber(0, 1) ^ 2 == ComplexNumber(-1, 0)",
+            "name": "$(Expr(:escape, :(ComplexNumber(0, 1) ^ 2 == ComplexNumber(-1, 0))))",
             "test_code": "@test ComplexNumber(0, 1) ^ 2 == ComplexNumber(-1, 0)",
             "status": "pass"
         },
@@ -97,19 +97,19 @@
             "name": "Syntax sugar jm.5",
             "test_code": "@test false",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, false))"
         },
         {
             "name": "Syntax sugar jm.6",
             "test_code": "@test false",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, false))"
         },
         {
             "name": "Syntax sugar jm.7",
             "test_code": "@test false",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, false))"
         }
     ]
 }
