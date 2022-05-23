@@ -4,8 +4,9 @@
     "tests": [
         {
             "name": "first test",
-            "test_code": "@test x == 1",
-            "status": "pass"
+            "test_code": "@test f(1) == 1",
+            "status": "pass",
+            "output": "x = 1\n"
         },
         {
             "name": "second test",

@@ -1,9 +1,8 @@
 using Test
 
 @testset "first test" begin
-    x = 1
-    @show x # Debugging
-    @test x == 1
+    f(x) = @show x
+    @test f(1) == 1
 end
 
 @testset "second test" begin
