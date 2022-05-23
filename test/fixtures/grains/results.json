@@ -4,7 +4,7 @@
     "tests": [
         {
             "name": "beginning squares",
-            "test_code": "@test on_square(1) == 1\n@test on_square(2) == 2\n@test on_square(3) == 4\n@test on_square(4) == 8\n@test on_square(16) == 32768\n@test on_square(32) == 2147483648\n@test total_after(1) == 1\n@test total_after(3) == on_square(1) + on_square(2) + on_square(3)",
+            "test_code": "@test on_square(1) == 1\n@test on_square(2) == 2\n@test on_square(3) == 4\n@test on_square(4) == 8\n@test on_square(16) == 32768\n...",
             "status": "pass"
         },
         {
