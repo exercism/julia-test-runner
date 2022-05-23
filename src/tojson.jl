@@ -85,13 +85,11 @@ function tojson(output::String, ts::ReportingTestSet)
     output = truncate_output(output)
 
     function test_code(result::Test.Result)
-        if result isa Test.Pass && result.test_type == :test_throws
-            "@test_throws $(result.data) $(result.orig_expr)"
-        elseif result isa Test.Fail && startswith(string(result.test_type), "test_throws")
+        if startswith(string(result.test_type), "test_throws")
             "@test_throws $(result.data) $(result.orig_expr)"
         elseif result isa Test.LogTestFailure
             "@test_logs $(join(result.patterns, ' ')) $(result.orig_expr)"
-        elseif result isa Test.Error && result.test_type == :test_unbroken
+        elseif result.test_type == :test_unbroken
             "@test_broken $(result.orig_expr)"
         elseif result isa Test.Broken
             macro_name = result.test_type === :skipped ? "@test_skip " : "@test_broken "
