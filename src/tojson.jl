@@ -84,6 +84,21 @@ function tojson(output::String, ts::ReportingTestSet)
     # All stdout from the top level test set, used for all tests.
     output = truncate_output(output)
 
+    function test_code(result::Test.Result)
+        if startswith(string(result.test_type), "test_throws")
+            "@test_throws $(result.data) $(result.orig_expr)"
+        elseif result isa Test.LogTestFailure
+            "@test_logs $(join(result.patterns, ' ')) $(result.orig_expr)"
+        elseif result.test_type == :test_unbroken
+            "@test_broken $(result.orig_expr)"
+        elseif result isa Test.Broken
+            macro_name = result.test_type === :skipped ? "@test_skip " : "@test_broken "
+            "$macro_name $(result.orig_expr)"
+        else
+            "@test $(result.orig_expr)"
+        end
+    end
+
     """
         push_result!(tests, result, name)
 
@@ -92,31 +107,24 @@ function tojson(output::String, ts::ReportingTestSet)
     function push_result!(tests, result::Test.Result, name)
         status = nothing
         message = nothing
-        test_code = nothing
 
         if result isa Test.Pass
             status = "pass"
-            test_code = "@test $(result.orig_expr)"
         elseif result isa Test.Fail
             status = "fail"
             message = string(result)
-            test_code = "@test $(result.orig_expr)"
         elseif result isa Test.LogTestFailure
             status = "fail"
             message = string(result)
-            test_code = "@test_logs $(join(result.patterns, ' ')) $(result.orig_expr)"
         elseif result isa Test.Error
             status = "error"
             message = result.backtrace
-            test_code = "@test " * result.orig_expr
         elseif result isa Test.Broken
             if result.test_type === :skipped
                 return nothing
             end
             # TODO: In the future we might have a new `status = skip`
             message = string(result)
-            test_code = result.test_type === :skipped ? "@test_skip " : "@test_broken "
-            test_code *= string(result.orig_expr)
         else
             error("Unknown testset.results item: $result")
         end
@@ -127,7 +135,7 @@ function tojson(output::String, ts::ReportingTestSet)
             "name" => name,
             "status" => status,
             "message" => message,
-            "test_code" => test_code,
+            "test_code" => test_code(result),
             "output" => output,
         ))))
     end
@@ -159,12 +167,11 @@ function tojson(output::String, ts::ReportingTestSet)
         collapse_passing_tests = num_results >= TEST_RESULT_COLLAPSE_THRESHOLD && num_passing > 1 && name != ""
 
         if collapse_passing_tests
-            test_code = join(("@test $(r.orig_expr)" for r in passing_tests), '\n')
             collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
             push!(tests, Dict(
                 "name" => collapsed_name,
                 "status" => "pass",
-                "test_code" => test_code
+                "test_code" => join(map(test_code, passing_tests), '\n')
             ))
         end
 
