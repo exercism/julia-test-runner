@@ -40,8 +40,10 @@ jobs:
           # Create container
           run(`docker create --name jtr-$test jtr-img irrelevant /tmp/ /tmp/`)
 
-          # Copy test file to container
+          # Copy test file(s) to container
           run(`docker cp "test/fixtures/$test/runtests.jl" jtr-$test:/tmp/`)
+          isfile("test/fixtures/$test/$test.jl") &&
+            run(`docker cp "test/fixtures/$test/$test.jl" jtr-$test:/tmp/`)
 
           # Start container to run the test runner
           run(`docker start -a jtr-$test`)
