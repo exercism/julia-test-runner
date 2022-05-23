@@ -92,6 +92,24 @@
             "test_code": "@test ComplexNumber(1, 1) == 1 + 1jm",
             "status": "error",
             "message": "promotion of types Int64 and ExercismTestReports.ComplexNumber{Bool} failed to change any arguments\nStacktrace:\n [1] error(::String, ::String, ::String)\n   @ Base ./error.jl:42\n [2] sametype_error(input::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:374\n [3] not_sametype(x::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}}, y::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:368\n [4] promote\n   @ ./promotion.jl:351 [inlined]\n [5] *(x::Int64, y::ExercismTestReports.ComplexNumber{Bool})\n   @ Base ./promotion.jl:380\n [6] macro expansion\n   @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:445 [inlined]\n [7] macro expansion\n   @ ./runtests.jl:73 [inlined]\n [8] macro expansion\n   @ /usr/share/julia/stdlib/v1.7/Test/src/Test.jl:1283 [inlined]\n [9] top-level scope\n   @ ./runtests.jl:71"
+        },
+        {
+            "name": "Syntax sugar jm.5",
+            "test_code": "@test false",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
+        },
+        {
+            "name": "Syntax sugar jm.6",
+            "test_code": "@test false",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
+        },
+        {
+            "name": "Syntax sugar jm.7",
+            "test_code": "@test false",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
         }
     ]
 }
