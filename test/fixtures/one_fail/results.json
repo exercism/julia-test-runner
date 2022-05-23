@@ -4,6 +4,7 @@
     "tests": [
         {
             "name": "first test",
+            "test_code": "@test 1 == 1",
             "status": "pass"
         },
         {
@@ -14,6 +15,7 @@
         },
         {
             "name": "third test",
+            "test_code": "@test 3 == 3",
             "status": "pass"
         }
     ]

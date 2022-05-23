@@ -4,14 +4,17 @@
     "tests": [
         {
             "name": "first test",
+            "test_code": "@test x == 1",
             "status": "pass"
         },
         {
             "name": "second test",
+            "test_code": "@test 2 == 2",
             "status": "pass"
         },
         {
             "name": "third test",
+            "test_code": "@test 3 == 3",
             "status": "pass"
         }
     ]
