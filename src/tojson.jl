@@ -7,6 +7,7 @@ tests collapsed into a single report.
 """
 const TEST_RESULT_COLLAPSE_THRESHOLD = 2
 const MAX_REPORTED_FAILURES_PER_TESTSET = 5
+const MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE = 5
 
 """
     tojson(output::String, ts::ReportingTestSet)
@@ -168,8 +169,9 @@ function tojson(output::String, ts::ReportingTestSet)
 
         if collapse_passing_tests
             collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
-            if num_passing > MAX_REPORTED_FAILURES_PER_TESTSET
-                code = join(map(test_code, passing_tests[1:MAX_REPORTED_FAILURES_PER_TESTSET]), '\n') * "\n..."
+            # If many tests pass then the reported test_code will be excessively large, so we truncate it.
+            if num_passing > MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE
+                code = join(map(test_code, passing_tests[1:MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE]), '\n') * "\n..."
             else
                 code = join(map(test_code, passing_tests), '\n')
             end
