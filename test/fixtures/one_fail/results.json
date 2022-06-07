@@ -11,7 +11,7 @@
             "name": "second test",
             "test_code": "@test x == 1",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:9\n  Expression: x == 1\n   Evaluated: 2 == 1"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, :(x == 1)))"
         },
         {
             "name": "third test",

@@ -11,19 +11,19 @@
             "name": "outer » inner 1.2",
             "test_code": "@test 1 == 2",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:8\n  Expression: 1 == 2\n   Evaluated: 1 == 2"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, :(1 == 2)))"
         },
         {
             "name": "outer » inner 2",
             "test_code": "@test 3 == 4",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:12\n  Expression: 3 == 4\n   Evaluated: 3 == 4"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, :(3 == 4)))"
         },
         {
             "name": "outer 2 » inner 3",
             "test_code": "@test 5 == 6",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:20\n  Expression: 5 == 6\n   Evaluated: 5 == 6"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, :(5 == 6)))"
         },
         {
             "name": "outer 2",
@@ -45,7 +45,7 @@
             "name": "outer 3 » inner 4",
             "test_code": "@test f(5) == 6",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:32\n  Expression: f(5) == 6\n   Evaluated: 5 == 6"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, :(f(5) == 6)))"
         }
     ]
 }

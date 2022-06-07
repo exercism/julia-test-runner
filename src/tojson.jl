@@ -10,7 +10,7 @@ const MAX_REPORTED_FAILURES_PER_TESTSET = 5
 const MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE = 5
 
 """
-    tojson(output::String, ts::ReportingTestSet)
+    tojson(general_output::String, ts::ReportingTestSet)
 
 Takes user output and a ReportingTestSet and converts it to a JSON string as
 expected by the interface.
@@ -56,7 +56,7 @@ For more information, check the reference:
 https://github.com/exercism/docs/blob/main/building/tooling/test-runners/interface.md
 """
 # TODO: Capture output per-test
-function tojson(output::String, ts::ReportingTestSet)
+function tojson(general_output::String, ts::ReportingTestSet)
     if length(ts.results) == 1 && ts.results[1] isa Test.Error
         # There has been a syntax error or similar and no tests have run.
         # Otherwise ts.results[1] will be a ReportingTestSet.
@@ -83,20 +83,29 @@ function tojson(output::String, ts::ReportingTestSet)
     # Flag set in push_result!(), used for top-level status property
     any_failed = false
     # All stdout from the top level test set, used for all tests.
-    output = truncate_output(output)
+    general_output = truncate_output(general_output)
+
+    unescape(e) = e
+    unescape(e::String) = startswith(e, "\$(") ? unescape(Meta.parse(e[3:end-1])) : e
+    unescape(e::Expr) = e.head == :escape ? unescape(e.args[1]) : e
 
     function test_code(result::Test.Result)
+        if haskey(test_outputs, result)
+            expr = test_outputs[result].expr
+        else
+            expr = unescape(result.orig_expr)
+        end
         if hasproperty(result, :test_type) && startswith(string(result.test_type), "test_throws")
-            "@test_throws $(result.data) $(result.orig_expr)"
+            "@test_throws $(result.data) $expr"
         elseif result isa Test.LogTestFailure
-            "@test_logs $(join(result.patterns, ' ')) $(result.orig_expr)"
+            "@test_logs $(join(result.patterns, ' ')) $expr"
         elseif hasproperty(result, :test_type) && result.test_type == :test_unbroken
-            "@test_broken $(result.orig_expr)"
+            "@test_broken $expr"
         elseif result isa Test.Broken
             macro_name = result.test_type === :skipped ? "@test_skip " : "@test_broken "
-            "$macro_name $(result.orig_expr)"
+            "$macro_name $expr"
         else
-            "@test $(result.orig_expr)"
+            "@test $expr"
         end
     end
 
@@ -131,6 +140,12 @@ function tojson(output::String, ts::ReportingTestSet)
         end
 
         any_failed = any_failed || status in ("fail", "error")
+
+        if haskey(test_outputs, result)
+            output = truncate_output(test_outputs[result].output)
+        else
+            output = general_output
+        end
 
         return push!(tests, Dict(filter( ((k, v),) -> !isnothing(v), (
             "name" => name,

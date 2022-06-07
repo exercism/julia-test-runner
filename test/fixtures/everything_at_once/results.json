@@ -4,7 +4,7 @@
     "tests": [
         {
             "name": "first test",
-            "test_code": "@test x == 1",
+            "test_code": "@test f(1) == 1",
             "status": "pass",
             "output": "x = 1\n"
         },
@@ -12,15 +12,13 @@
             "name": "second test",
             "test_code": "@test 1 == 2",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:10\n  Expression: 1 == 2\n   Evaluated: 1 == 2",
-            "output": "x = 1\n"
+            "message": "Test Failed at /home/colin/projects/exercism/repos/julia-test-runner/src/runner.jl:10\n  Expression: $(Expr(:escape, :(1 == 2)))"
         },
         {
             "name": "third test",
             "test_code": "@test error(\"\")",
             "status": "error",
-            "message": "",
-            "output": "x = 1\n"
+            "message": ""
         }
     ]
 }
