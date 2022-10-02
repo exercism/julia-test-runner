@@ -1,5 +1,9 @@
 using Test
 
+# Include stdlibs in sysimage
+using Dates
+using Random
+
 @testset "first test" begin
     x = 1
     @show x # Debugging

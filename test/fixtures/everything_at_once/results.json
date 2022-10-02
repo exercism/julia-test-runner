@@ -12,7 +12,7 @@
             "name": "second test",
             "test_code": "@test 1 == 2",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:10\n  Expression: 1 == 2\n   Evaluated: 1 == 2",
+            "message": "Test Failed at ./runtests.jl:14\n  Expression: 1 == 2\n   Evaluated: 1 == 2",
             "output": "x = 1\n"
         },
         {
