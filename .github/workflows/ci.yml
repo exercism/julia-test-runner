@@ -14,7 +14,7 @@ jobs:
 
     # Change this to add or remove tests
     env:
-      TESTS: all_passing,all_passing_with_debugging,everything_at_once,one_fail,one_passing,truncated_output,grains,complex-numbers,test_logs
+      TESTS: all_passing,all_passing_with_debugging,everything_at_once,one_fail,one_passing,truncated_output,grains,complex-numbers,test_logs,using_stdlib
       JULIA_NUM_THREADS: 2
 
     steps:
