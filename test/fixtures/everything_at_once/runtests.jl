@@ -3,6 +3,8 @@ using Test
 # Include stdlibs in sysimage
 using Dates
 using Random
+using Unicode
+using Printf
 
 @testset "first test" begin
     x = 1
