@@ -3,7 +3,7 @@ FROM julia:1.8.2 AS build-sysimage
 WORKDIR /tmp/image-builder/
 
 # PackageCompiler needs gcc or clang
-RUN apt update && apt install -y clang
+RUN apt-get update && apt-get install -y clang
 
 # Copy ExercismTestReports
 COPY src/ ./src/
