@@ -4,7 +4,9 @@ using Test
 using Dates
 using Random
 using Unicode
-using Printf
+using Printf # clock
+using REPL # emoji_times
+using LinearAlgebra # spiral
 
 @testset "first test" begin
     x = 1
