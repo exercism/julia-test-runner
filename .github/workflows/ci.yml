@@ -21,7 +21,7 @@ jobs:
     - name: Disable GHA commands
       run: echo "::stop-commands::`cat /dev/urandom | base64 | head -c 64`"
           
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
 
     - name: Build image
       run: docker build -t jtr-img .
