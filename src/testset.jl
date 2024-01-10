@@ -19,7 +19,7 @@ mutable struct ReportingTestSet <: AbstractTestSet
     description::String
     results::Vector
 end
-ReportingTestSet(desc) = ReportingTestSet(desc, [])
+ReportingTestSet(desc; args...) = ReportingTestSet(desc, [])
 
 # Store _all_ results
 record(ts::ReportingTestSet, t::Union{Fail, Error, Broken, Pass, LogTestFailure}) =
