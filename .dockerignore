@@ -1,4 +1,5 @@
 .appends
+.git
 .github
 .gitignore
 .gitattributes

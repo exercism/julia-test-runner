@@ -3,14 +3,19 @@ FROM julia:1.8.5 AS build-sysimage
 WORKDIR /tmp/image-builder/
 
 # PackageCompiler needs gcc or clang
-RUN apt-get update && apt-get install -y clang
+RUN apt-get update && apt-get install -y clang git
 
 # Copy ExercismTestReports
 COPY src/ ./src/
 COPY Manifest.toml ./
 COPY Project.toml ./
+
 # PackageSpec requires a git repo
-COPY .git/ ./.git/
+RUN git init && \
+    git config --global user.email "you@example.com" && \
+    git config --global user.name "Your Name" && \
+    git add src Manifest.toml Project.toml && \
+    git commit -m 'Initial commit'
 
 # Prepare precompiliation files
 COPY precompile_execution_file.jl ./precompile_execution_file.jl
