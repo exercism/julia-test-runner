@@ -72,7 +72,7 @@ jobs:
 
         @testset "Compare results.json files" begin
           @testset "$test" for test in tests
-              expected = JSON.parsefile(joinpath("test", "fixtures", "$test", "results.json"))
+              expected = JSON.parsefile(joinpath("test", "fixtures", "$test", "expected_results.json"))
               created = JSON.parsefile(joinpath("results", "$test.json"))
 
               shorten_messages!(expected)
