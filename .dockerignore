@@ -7,3 +7,5 @@ CODE_OF_CONDUCT.md
 Dockerfile
 LICENSE
 README.md
+test/
+!test/fixtures/everything_at_once/runtests.jl
