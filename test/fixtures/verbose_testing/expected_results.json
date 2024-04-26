@@ -1,0 +1,51 @@
+{
+    "status": "fail",
+    "version": 2,
+    "tests": [
+        {
+            "name": "inner 1.1",
+            "test_code": "@test 1 == 1",
+            "status": "pass"
+        },
+        {
+            "name": "inner 1.2",
+            "test_code": "@test 1 == 2",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:10\n  Expression: 1 == 2\n   Evaluated: 1 == 2\n"
+        },
+        {
+            "name": "inner 2",
+            "test_code": "@test 3 == 4",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:14\n  Expression: 3 == 4\n   Evaluated: 3 == 4\n"
+        },
+        {
+            "name": "inner 3",
+            "test_code": "@test 5 == 6",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:18\n  Expression: 5 == 6\n   Evaluated: 5 == 6\n"
+        },
+        {
+            "name": "",
+            "test_code": "@test 1 == 1",
+            "status": "pass"
+        },
+        {
+            "name": "outer 3.1",
+            "test_code": "@test error(\"\")",
+            "status": "error",
+            "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:35\n [2] macro expansion\n   @ ./runtests.jl:24 [inlined]\n [3] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n [4] macro expansion\n   @ ./runtests.jl:24 [inlined]\n [5] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [6] top-level scope\n   @ ./runtests.jl:24"
+        },
+        {
+            "name": "outer 3.2",
+            "test_code": "@test true",
+            "status": "pass"
+        },
+        {
+            "name": "outer 3 » inner 4",
+            "test_code": "@test f(5) == 6",
+            "status": "fail",
+            "message": "Test Failed at ./runtests.jl:28\n  Expression: f(5) == 6\n   Evaluated: 5 == 6\n"
+        }
+    ]
+}
