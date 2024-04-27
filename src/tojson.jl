@@ -147,8 +147,8 @@ function tojson(output::String, ts::ReportingTestSet)
     Walk the tree of testsets, pushing Dicts to `tests` describing each test
     result. Returns nothing.
     """
-    function walk!(tests, prefix, testset, toplevel)
-        name = testset.verbose && toplevel ? "" : isempty(prefix) ? testset.description : "$prefix » $(testset.description)"
+    function walk!(tests, prefix, testset)
+        name = testset.verbose ? "" : isempty(prefix) ? testset.description : "$prefix » $(testset.description)"
 
         num_results = count(x -> x isa Test.Result, testset.results)
 
@@ -188,7 +188,7 @@ function tojson(output::String, ts::ReportingTestSet)
         num_reported_failures = 0
         for (n, result) in enumerate(testset.results)
             if result isa Test.AbstractTestSet
-                walk!(tests, name, result, false)
+                walk!(tests, name, result)
             elseif result isa Test.Pass
                 collapse_passing_tests || push_result!(tests, result, test_name(result, n))
             else
@@ -201,7 +201,7 @@ function tojson(output::String, ts::ReportingTestSet)
 
     tests = Dict{String, Union{String, Nothing}}[]
 
-    walk!(tests, "", ts, true)
+    walk!(tests, "", ts)
 
     JSON.json(Dict(
         "version" => 2,

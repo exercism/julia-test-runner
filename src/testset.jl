@@ -18,8 +18,9 @@ import Test: record, finish, scrub_backtrace, get_testset_depth, get_testset
 mutable struct ReportingTestSet <: AbstractTestSet
     description::String
     results::Vector
+    verbose::Bool
 end
-ReportingTestSet(desc; args...) = ReportingTestSet(desc, [])
+ReportingTestSet(desc; verbose=true, args...) = ReportingTestSet(desc, [], verbose)
 
 # Store _all_ results
 record(ts::ReportingTestSet, t::Union{Fail, Error, Broken, Pass, LogTestFailure}) =
