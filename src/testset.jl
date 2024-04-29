@@ -20,7 +20,7 @@ mutable struct ReportingTestSet <: AbstractTestSet
     results::Vector
     verbose::Bool
 end
-ReportingTestSet(desc; verbose=true, args...) = ReportingTestSet(desc, [], verbose)
+ReportingTestSet(desc; verbose=false, args...) = ReportingTestSet(desc, [], verbose)
 
 # Store _all_ results
 record(ts::ReportingTestSet, t::Union{Fail, Error, Broken, Pass, LogTestFailure}) =
