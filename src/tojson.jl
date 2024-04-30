@@ -148,7 +148,7 @@ function tojson(output::String, ts::ReportingTestSet)
     result. Returns nothing.
     """
     function walk!(tests, prefix, testset)
-        name = isempty(prefix) ? testset.description : "$prefix » $(testset.description)"
+        name = testset.verbose ? "" : isempty(prefix) ? testset.description : "$prefix » $(testset.description)"
 
         num_results = count(x -> x isa Test.Result, testset.results)
 
