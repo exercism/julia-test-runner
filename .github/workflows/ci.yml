@@ -10,7 +10,7 @@ on:
 jobs:
   test:
     name: Automated tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     # Change this to add or remove tests
     env:
