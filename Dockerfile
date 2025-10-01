@@ -1,4 +1,4 @@
-FROM julia:1.11.6 AS build-sysimage
+FROM julia:1.11.7 AS build-sysimage
 
 WORKDIR /tmp/image-builder/
 
@@ -25,7 +25,7 @@ COPY test/fixtures/everything_at_once/runtests.jl ./test/fixtures/everything_at_
 RUN julia --project=build-env -e 'using Pkg; Pkg.add("PackageCompiler"); Pkg.add(PackageSpec(path="."))'
 RUN julia --project=build-env -e 'using PackageCompiler; create_sysimage(:ExercismTestReports; sysimage_path = "test-runner-sysimage.so", precompile_execution_file="precompile_execution_file.jl", cpu_target="x86-64")'
 
-FROM julia:1.11.6
+FROM julia:1.11.7
 
 WORKDIR /opt/test-runner/
 
