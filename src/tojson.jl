@@ -96,7 +96,13 @@ function tojson(output::String, ts::ReportingTestSet)
             macro_name = result.test_type === :skipped ? "@test_skip " : "@test_broken "
             "$macro_name $(result.orig_expr)"
         else
-            "@test $(result.orig_expr)"
+            if hasproperty(result, :backtrace)
+                # For test failure, return full Test.Result output minus the source and stacktrace.
+                strip(replace(string(result), r" at .+\n" => "\n", r"\n  Stacktrace[\s\S]*" => "", count=2))
+            else 
+                # For test success, return the evaluated expression.
+                "@test $(result.orig_expr)"
+            end
         end
     end
 
