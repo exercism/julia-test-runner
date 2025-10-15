@@ -54,25 +54,25 @@
         },
         {
             "name": "Complex exponential.1",
-            "test_code": "@test exp(ComplexNumber(0, π)) ≈ ComplexNumber(-1, 0)",
+            "test_code": "Error During Test\n  Test threw exception\n  Expression: exp(ComplexNumber(0, π)) ≈ ComplexNumber(-1, 0)\n  promotion of types Float64 and ComplexNumber{Float64} failed to change any arguments",
             "status": "error",
             "message": "promotion of types Float64 and ExercismTestReports.ComplexNumber{Float64} failed to change any arguments\nStacktrace:\n  [1] error(::String, ::String, ::String)\n    @ Base ./error.jl:44\n  [2] sametype_error(input::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:417\n  [3] not_sametype(x::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}}, y::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:411\n  [4] promote\n    @ ./promotion.jl:394 [inlined]\n  [5] *(x::Float64, y::ExercismTestReports.ComplexNumber{Float64})\n    @ Base ./promotion.jl:423\n  [6] exp(x::ExercismTestReports.ComplexNumber{Float64})\n    @ ExercismTestReports ./complex-numbers.jl:53\n  [7] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n  [8] macro expansion\n    @ ./runtests.jl:63 [inlined]\n  [9] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [10] top-level scope\n    @ ./runtests.jl:63"
         },
         {
             "name": "Complex exponential.2",
-            "test_code": "@test exp(ComplexNumber(0, 0)) == ComplexNumber(1, 0)",
+            "test_code": "Error During Test\n  Test threw exception\n  Expression: exp(ComplexNumber(0, 0)) == ComplexNumber(1, 0)\n  promotion of types Float64 and ComplexNumber{Float64} failed to change any arguments",
             "status": "error",
             "message": "promotion of types Float64 and ExercismTestReports.ComplexNumber{Float64} failed to change any arguments\nStacktrace:\n  [1] error(::String, ::String, ::String)\n    @ Base ./error.jl:44\n  [2] sametype_error(input::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:417\n  [3] not_sametype(x::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}}, y::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:411\n  [4] promote\n    @ ./promotion.jl:394 [inlined]\n  [5] *(x::Float64, y::ExercismTestReports.ComplexNumber{Float64})\n    @ Base ./promotion.jl:423\n  [6] exp(x::ExercismTestReports.ComplexNumber{Int64})\n    @ ExercismTestReports ./complex-numbers.jl:53\n  [7] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n  [8] macro expansion\n    @ ./runtests.jl:64 [inlined]\n  [9] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [10] top-level scope\n    @ ./runtests.jl:63"
         },
         {
             "name": "Complex exponential.3",
-            "test_code": "@test exp(ComplexNumber(1, 0)) ≈ ComplexNumber(ℯ, 0)",
+            "test_code": "Error During Test\n  Test threw exception\n  Expression: exp(ComplexNumber(1, 0)) ≈ ComplexNumber(ℯ, 0)\n  promotion of types Float64 and ComplexNumber{Float64} failed to change any arguments",
             "status": "error",
             "message": "promotion of types Float64 and ExercismTestReports.ComplexNumber{Float64} failed to change any arguments\nStacktrace:\n  [1] error(::String, ::String, ::String)\n    @ Base ./error.jl:44\n  [2] sametype_error(input::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:417\n  [3] not_sametype(x::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}}, y::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:411\n  [4] promote\n    @ ./promotion.jl:394 [inlined]\n  [5] *(x::Float64, y::ExercismTestReports.ComplexNumber{Float64})\n    @ Base ./promotion.jl:423\n  [6] exp(x::ExercismTestReports.ComplexNumber{Int64})\n    @ ExercismTestReports ./complex-numbers.jl:53\n  [7] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n  [8] macro expansion\n    @ ./runtests.jl:65 [inlined]\n  [9] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [10] top-level scope\n    @ ./runtests.jl:63"
         },
         {
             "name": "Complex exponential.4",
-            "test_code": "@test exp(ComplexNumber(log(2), π)) ≈ ComplexNumber(-2, 0)",
+            "test_code": "Error During Test\n  Test threw exception\n  Expression: exp(ComplexNumber(log(2), π)) ≈ ComplexNumber(-2, 0)\n  promotion of types Float64 and ComplexNumber{Float64} failed to change any arguments",
             "status": "error",
             "message": "promotion of types Float64 and ExercismTestReports.ComplexNumber{Float64} failed to change any arguments\nStacktrace:\n  [1] error(::String, ::String, ::String)\n    @ Base ./error.jl:44\n  [2] sametype_error(input::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:417\n  [3] not_sametype(x::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}}, y::Tuple{Float64, ExercismTestReports.ComplexNumber{Float64}})\n    @ Base ./promotion.jl:411\n  [4] promote\n    @ ./promotion.jl:394 [inlined]\n  [5] *(x::Float64, y::ExercismTestReports.ComplexNumber{Float64})\n    @ Base ./promotion.jl:423\n  [6] exp(x::ExercismTestReports.ComplexNumber{Float64})\n    @ ExercismTestReports ./complex-numbers.jl:53\n  [7] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n  [8] macro expansion\n    @ ./runtests.jl:66 [inlined]\n  [9] macro expansion\n    @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [10] top-level scope\n    @ ./runtests.jl:63"
         },
@@ -83,31 +83,31 @@
         },
         {
             "name": "Syntax sugar jm.2",
-            "test_code": "@test ComplexNumber(1, 0) == 1 + 0jm",
+            "test_code": "Error During Test\n  Test threw exception\n  Expression: ComplexNumber(1, 0) == 1 + 0jm\n  promotion of types Int64 and ComplexNumber{Bool} failed to change any arguments",
             "status": "error",
             "message": "promotion of types Int64 and ExercismTestReports.ComplexNumber{Bool} failed to change any arguments\nStacktrace:\n [1] error(::String, ::String, ::String)\n   @ Base ./error.jl:44\n [2] sametype_error(input::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:417\n [3] not_sametype(x::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}}, y::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:411\n [4] promote\n   @ ./promotion.jl:394 [inlined]\n [5] *(x::Int64, y::ExercismTestReports.ComplexNumber{Bool})\n   @ Base ./promotion.jl:423\n [6] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n [7] macro expansion\n   @ ./runtests.jl:72 [inlined]\n [8] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [9] top-level scope\n   @ ./runtests.jl:71"
         },
         {
             "name": "Syntax sugar jm.3",
-            "test_code": "@test ComplexNumber(1, 1) == 1 + 1jm",
+            "test_code": "Error During Test\n  Test threw exception\n  Expression: ComplexNumber(1, 1) == 1 + 1jm\n  promotion of types Int64 and ComplexNumber{Bool} failed to change any arguments",
             "status": "error",
             "message": "promotion of types Int64 and ExercismTestReports.ComplexNumber{Bool} failed to change any arguments\nStacktrace:\n [1] error(::String, ::String, ::String)\n   @ Base ./error.jl:44\n [2] sametype_error(input::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:417\n [3] not_sametype(x::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}}, y::Tuple{Int64, ExercismTestReports.ComplexNumber{Bool}})\n   @ Base ./promotion.jl:411\n [4] promote\n   @ ./promotion.jl:394 [inlined]\n [5] *(x::Int64, y::ExercismTestReports.ComplexNumber{Bool})\n   @ Base ./promotion.jl:423\n [6] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n [7] macro expansion\n   @ ./runtests.jl:73 [inlined]\n [8] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [9] top-level scope\n   @ ./runtests.jl:71"
         },
         {
             "name": "Syntax sugar jm.5",
-            "test_code": "@test false",
+            "test_code": "Test Failed\n  Expression: false",
             "status": "fail",
             "message": "Test Failed at ./runtests.jl:77\n  Expression: false\n"
         },
         {
             "name": "Syntax sugar jm.6",
-            "test_code": "@test false",
+            "test_code": "Test Failed\n  Expression: false",
             "status": "fail",
             "message": "Test Failed at ./runtests.jl:77\n  Expression: false\n"
         },
         {
             "name": "Syntax sugar jm.7",
-            "test_code": "@test false",
+            "test_code": "Test Failed\n  Expression: false",
             "status": "fail",
             "message": "Test Failed at ./runtests.jl:77\n  Expression: false\n"
         }

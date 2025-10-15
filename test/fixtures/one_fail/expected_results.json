@@ -9,7 +9,7 @@
         },
         {
             "name": "second test",
-            "test_code": "@test x == 1",
+            "test_code": "Test Failed\n  Expression: x == 1\n   Evaluated: 2 == 1",
             "status": "fail",
             "message": "Test Failed at ./runtests.jl:9\n  Expression: x == 1\n   Evaluated: 2 == 1\n"
         },
