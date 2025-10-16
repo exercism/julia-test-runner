@@ -1,6 +1,6 @@
 {
     "status": "fail",
-    "version": 2,
+    "version": 3,
     "tests": [
         {
             "name": "nothing",

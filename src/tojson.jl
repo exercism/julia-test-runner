@@ -18,7 +18,7 @@ expected by the interface.
 Here's a brief summary of the schema we're following:
 
 {
-    version: 2
+    version: 3
     status: pass | fail | error
     message?: "a descriptive message emitted only if none of the tests ran (e.g. a syntax error in the file)"
     tests: [
@@ -29,16 +29,16 @@ Here's a brief summary of the schema we're following:
             output?: "the stdout for this test"
             test_code?: "snippet of code that failed that student can try locally"
                 (required for failing or erroring concept exercise tests)
-            task_id?: "a concept exercise thing we don't support yet"
-                (bump version to 3 if we support this)
+            task_id?: "task number associated with a test in a concept exercise"
         },
     ]
 }
 
 Note:
-    We currently populate test_code only with the failing or erroring `@test`
-    expression. This means that we don't give all the necessary information if
-    the test relies on definitions outside of that expression, e.g.
+    We currently populate test_code only with the type of failure, the failing 
+    or erroring `@test` expression and what was evaluated (i.e. the Test.Report
+    output). This means that we don't give all the necessary information if the 
+    test relies on definitions outside of that expression, e.g.
 
     ```julia
     @testset begin
@@ -48,8 +48,7 @@ Note:
     ```
 
     For that to make sense, the student would really need the entirety of the
-    enclosing testset, but we will only give them the string
-    `@test robot.rename!()`
+    enclosing testset.
 
 For more information, check the reference:
 
@@ -61,7 +60,7 @@ function tojson(output::String, ts::ReportingTestSet)
         # There has been a syntax error or similar and no tests have run.
         # Otherwise ts.results[1] will be a ReportingTestSet.
         return JSON.json(Dict(
-            "version" => 2,
+            "version" => 3,
             "status" => "error",
             "message" => ts.results[1].backtrace,
             "tests" => [],
@@ -84,8 +83,8 @@ function tojson(output::String, ts::ReportingTestSet)
     any_failed = false
     # All stdout from the top level test set, used for all tests.
     output = truncate_output(output)
-
-    function test_code(result::Test.Result)
+    
+    function test_code(result::Test.Result, task_id)
         if hasproperty(result, :test_type) && startswith(string(result.test_type), "test_throws")
             "@test_throws $(result.data) $(result.orig_expr)"
         elseif result isa Test.LogTestFailure
@@ -96,7 +95,13 @@ function tojson(output::String, ts::ReportingTestSet)
             macro_name = result.test_type === :skipped ? "@test_skip " : "@test_broken "
             "$macro_name $(result.orig_expr)"
         else
-            "@test $(result.orig_expr)"
+            if !isnothing(task_id) && hasproperty(result, :backtrace)
+                # For concept test failure, return full Test.Result output minus the source and stacktrace.
+                strip(replace(string(result), r" at .+\n" => "\n", r"\n  Stacktrace[\s\S]*" => "", count=2))
+            else 
+                # For concept test success or any practice test result, return the evaluated expression.
+                "@test $(result.orig_expr)"
+            end
         end
     end
 
@@ -105,7 +110,7 @@ function tojson(output::String, ts::ReportingTestSet)
 
     Push a test result called `name` to `tests`. Returns the pushed Dict or `nothing` if the test was not pushed.
     """
-    function push_result!(tests, result::Test.Result, name)
+    function push_result!(tests, result::Test.Result, name, task_id)
         status = nothing
         message = nothing
 
@@ -136,8 +141,9 @@ function tojson(output::String, ts::ReportingTestSet)
             "name" => name,
             "status" => status,
             "message" => message,
-            "test_code" => test_code(result),
+            "test_code" => test_code(result, task_id),
             "output" => output,
+            "task_id" => task_id
         ))))
     end
 
@@ -152,6 +158,8 @@ function tojson(output::String, ts::ReportingTestSet)
 
         num_results = count(x -> x isa Test.Result, testset.results)
 
+        task_id = startswith(name, r"\d+") ? parse(Int, only(match(r"^(\d+)", name).captures)) : nothing
+        
         function test_name(result, idx)
             if name == "" # Tests that aren't in a testset
                 string(result.orig_expr)
@@ -171,15 +179,19 @@ function tojson(output::String, ts::ReportingTestSet)
             collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
             # If many tests pass then the reported test_code will be excessively large, so we truncate it.
             if num_passing > MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE
-                code = join(map(test_code, passing_tests[1:MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE]), '\n') * "\n..."
+                code = join(map(test->test_code(test, task_id), passing_tests[1:MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE]), '\n') * "\n..."
             else
-                code = join(map(test_code, passing_tests), '\n')
+                code = join(map(test->test_code(test, task_id), passing_tests), '\n')
             end
-            push!(tests, Dict(
+
+            push!(tests, Dict(filter(kv -> !isnothing(kv.second), (
                 "name" => collapsed_name,
                 "status" => "pass",
                 "test_code" => code,
-            ))
+                "task_id" => task_id
+                )))
+            )
+
         end
 
         # Push up to MAX_REPORTED_FAILURES_PER_TESTSET failing test results.
@@ -190,21 +202,21 @@ function tojson(output::String, ts::ReportingTestSet)
             if result isa Test.AbstractTestSet
                 walk!(tests, name, result)
             elseif result isa Test.Pass
-                collapse_passing_tests || push_result!(tests, result, test_name(result, n))
+                collapse_passing_tests || push_result!(tests, result, test_name(result, n), task_id)
             else
                 num_reported_failures >= MAX_REPORTED_FAILURES_PER_TESTSET && continue
-                num_reported_failures += !isnothing(push_result!(tests, result, test_name(result, n)))
+                num_reported_failures += !isnothing(push_result!(tests, result, test_name(result, n), task_id))
             end
         end
         return nothing
     end
 
-    tests = Dict{String, Union{String, Nothing}}[]
+    tests = Dict{String, Union{String, SubString, Int, Nothing}}[]
 
     walk!(tests, "", ts)
 
     JSON.json(Dict(
-        "version" => 2,
+        "version" => 3,
         "status" => any_failed ? "fail" : "pass",
         "tests" => tests,
     ), 4)
