@@ -10,10 +10,10 @@ const MAX_REPORTED_FAILURES_PER_TESTSET = 5
 const MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE = 5
 
 """
-    tojson(output::String, ts::ReportingTestSet)
+    tojson(output::String, ts::ReportingTestSet, concept::Bool)
 
-Takes user output and a ReportingTestSet and converts it to a JSON string as
-expected by the interface.
+Takes user output, a ReportingTestSet and Bool indicating a concept or practice exercise, 
+and converts it to a JSON string as expected by the interface.
 
 Here's a brief summary of the schema we're following:
 
@@ -55,7 +55,7 @@ For more information, check the reference:
 https://github.com/exercism/docs/blob/main/building/tooling/test-runners/interface.md
 """
 # TODO: Capture output per-test
-function tojson(output::String, ts::ReportingTestSet)
+function tojson(output::String, ts::ReportingTestSet, concept::Bool)
     if length(ts.results) == 1 && ts.results[1] isa Test.Error
         # There has been a syntax error or similar and no tests have run.
         # Otherwise ts.results[1] will be a ReportingTestSet.
@@ -84,7 +84,7 @@ function tojson(output::String, ts::ReportingTestSet)
     # All stdout from the top level test set, used for all tests.
     output = truncate_output(output)
     
-    function test_code(result::Test.Result, task_id)
+    function test_code(result::Test.Result)
         if hasproperty(result, :test_type) && startswith(string(result.test_type), "test_throws")
             "@test_throws $(result.data) $(result.orig_expr)"
         elseif result isa Test.LogTestFailure
@@ -95,7 +95,7 @@ function tojson(output::String, ts::ReportingTestSet)
             macro_name = result.test_type === :skipped ? "@test_skip " : "@test_broken "
             "$macro_name $(result.orig_expr)"
         else
-            if !isnothing(task_id) && hasproperty(result, :backtrace)
+            if concept && hasproperty(result, :backtrace)
                 # For concept test failure, return full Test.Result output minus the source and stacktrace.
                 strip(replace(string(result), r" at .+\n" => "\n", r"\n  Stacktrace[\s\S]*" => "", count=2))
             else 
@@ -137,11 +137,11 @@ function tojson(output::String, ts::ReportingTestSet)
 
         any_failed = any_failed || status in ("fail", "error")
 
-        return push!(tests, Dict(filter( ((k, v),) -> !isnothing(v), (
+        return push!(tests, Dict(filter(kv -> !isnothing(kv.second), (
             "name" => name,
             "status" => status,
             "message" => message,
-            "test_code" => test_code(result, task_id),
+            "test_code" => test_code(result),
             "output" => output,
             "task_id" => task_id
         ))))
@@ -179,9 +179,9 @@ function tojson(output::String, ts::ReportingTestSet)
             collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
             # If many tests pass then the reported test_code will be excessively large, so we truncate it.
             if num_passing > MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE
-                code = join(map(test->test_code(test, task_id), passing_tests[1:MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE]), '\n') * "\n..."
+                code = join(map(test_code, passing_tests[1:MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE]), '\n') * "\n..."
             else
-                code = join(map(test->test_code(test, task_id), passing_tests), '\n')
+                code = join(map(test_code, passing_tests), '\n')
             end
 
             push!(tests, Dict(filter(kv -> !isnothing(kv.second), (
