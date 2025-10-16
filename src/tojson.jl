@@ -36,9 +36,10 @@ Here's a brief summary of the schema we're following:
 }
 
 Note:
-    We currently populate test_code only with the failing or erroring `@test`
-    expression. This means that we don't give all the necessary information if
-    the test relies on definitions outside of that expression, e.g.
+    We currently populate test_code only with the type of failure, the failing 
+    or erroring `@test` expression and what was evaluated (i.e. the Test.Report
+    output). This means that we don't give all the necessary information if the 
+    test relies on definitions outside of that expression, e.g.
 
     ```julia
     @testset begin
@@ -48,8 +49,7 @@ Note:
     ```
 
     For that to make sense, the student would really need the entirety of the
-    enclosing testset, but we will only give them the string
-    `@test robot.rename!()`
+    enclosing testset.
 
 For more information, check the reference:
 
