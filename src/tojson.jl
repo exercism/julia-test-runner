@@ -205,7 +205,7 @@ function tojson(output::String, ts::ReportingTestSet)
         return nothing
     end
 
-    tests = Dict{String, Union{String, Nothing}}[]
+    tests = Dict{String, Union{String, SubString, Nothing}}[]
 
     walk!(tests, "", ts)
 
