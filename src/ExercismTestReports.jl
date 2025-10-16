@@ -15,8 +15,8 @@ Like the three-argument version but returns a String encoding the contents of re
 This version is used in the tests for the test_runner itself.
 """
 function test_runner(exercise_slug, solution_dir)
-    captured_stdout, testsets = runtests(joinpath(solution_dir, "runtests.jl"))
-    json_str = tojson(captured_stdout, testsets)
+    captured_stdout, testsets, concept = runtests(joinpath(solution_dir, "runtests.jl"))
+    json_str = tojson(captured_stdout, testsets, concept)
 
     # Strip dir inside the test-runner container
     cleaned_json_str = replace(json_str, solution_dir => "./")

@@ -1,5 +1,7 @@
 using Test
 
+const EXERCISM_CONCEPT_EXERCISE = true
+
 #Adapted from /verbose_testing/runtests.jl
 
 f(x) = x
