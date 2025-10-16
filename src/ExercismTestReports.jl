@@ -16,7 +16,7 @@ This version is used in the tests for the test_runner itself.
 """
 function test_runner(exercise_slug, solution_dir)
     captured_stdout, testsets, concept = runtests(joinpath(solution_dir, "runtests.jl"))
-    json_str = tojson(captured_stdout, testsets)
+    json_str = tojson(captured_stdout, testsets, concept)
 
     # Strip dir inside the test-runner container
     cleaned_json_str = replace(json_str, solution_dir => "./")
