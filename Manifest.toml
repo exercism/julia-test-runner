@@ -1,6 +1,6 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.8.2"
+julia_version = "1.12.1"
 manifest_format = "2.0"
 project_hash = "6f5eb2ed37a396374bd92d8f57ef3ef0d70e3476"
 
@@ -18,7 +18,9 @@ uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 uuid = "8bf52ea8-c179-5cab-976a-9e18b702a9bc"
 
 [[deps.Combinatorics]]
+git-tree-sha1 = "8010b6bb3388abe68d95743dcbea77650bb2eddf"
 uuid = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
+version = "1.0.3"
 
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
