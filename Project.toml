@@ -1,11 +1,12 @@
 name = "ExercismTestReports"
-uuid = "7236a586-7a51-4683-88ea-7abd70ff61e6"
-authors = ["Sascha Mann <git@mail.saschamann.eu>", "Exercism", "Contributors"]
+uuid = "69cc0b75-19c5-4ec9-ac22-f5736a0b9044"
 version = "0.1.0"
+authors = ["Colin Leach <colin.leach@comcast.net>"]
 
 [deps]
 Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 CRC32c = "8bf52ea8-c179-5cab-976a-9e18b702a9bc"
+Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 FileWatching = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
@@ -31,11 +32,6 @@ Tar = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 Unicode = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
-
-[compat]
-JSON = "0.21"
-Suppressor = "0.2"
-julia = "1.7"
 
 [extras]
 InteractiveUtils = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
