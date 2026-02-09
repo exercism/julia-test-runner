@@ -84,7 +84,7 @@ function tojson(output::String, ts::ReportingTestSet)
     # All stdout from the top level test set, used for all tests.
     output = truncate_output(output)
     
-    function test_code(result::Test.Result, task_id)
+    function test_code(result::Test.Result)
         if hasproperty(result, :test_type) && startswith(string(result.test_type), "test_throws")
             "@test_throws $(result.data) $(result.orig_expr)"
         elseif result isa Test.LogTestFailure
@@ -95,13 +95,7 @@ function tojson(output::String, ts::ReportingTestSet)
             macro_name = result.test_type === :skipped ? "@test_skip " : "@test_broken "
             "$macro_name $(result.orig_expr)"
         else
-            if !isnothing(task_id) && hasproperty(result, :backtrace)
-                # For concept test failure, return full Test.Result output minus the source and stacktrace.
-                strip(replace(string(result), r" at .+\n" => "\n", r"\n  Stacktrace[\s\S]*" => "", count=2))
-            else 
-                # For concept test success or any practice test result, return the evaluated expression.
-                "@test $(result.orig_expr)"
-            end
+            "@test $(result.orig_expr)"
         end
     end
 
@@ -141,7 +135,7 @@ function tojson(output::String, ts::ReportingTestSet)
             "name" => name,
             "status" => status,
             "message" => message,
-            "test_code" => test_code(result, task_id),
+            "test_code" => test_code(result),
             "output" => output,
             "task_id" => task_id
         ))))
@@ -180,9 +174,9 @@ function tojson(output::String, ts::ReportingTestSet)
             collapsed_name = num_passing == num_results ? name : "$name » $num_passing tests"
             # If many tests pass then the reported test_code will be excessively large, so we truncate it.
             if num_passing > MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE
-                code = join(map(test->test_code(test, task_id), passing_tests[1:MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE]), '\n') * "\n..."
+                code = join(map(test_code, passing_tests[1:MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE]), '\n') * "\n..."
             else
-                code = join(map(test->test_code(test, task_id), passing_tests), '\n')
+                code = join(map(test_code, passing_tests), '\n')
             end
 
             push!(tests, Dict(filter(kv -> !isnothing(kv.second), (
