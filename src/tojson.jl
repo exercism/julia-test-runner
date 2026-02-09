@@ -158,7 +158,8 @@ function tojson(output::String, ts::ReportingTestSet)
 
         num_results = count(x -> x isa Test.Result, testset.results)
 
-        task_id = startswith(name, r"\d+") ? parse(Int, only(match(r"^(\d+)", name).captures)) : nothing
+        task_id, name = startswith(name, r"\d+") ? match(r"^(\d+)\. +(.*)", name).captures : [nothing, strip(name)]
+        task_id = isnothing(task_id) ? nothing : parse(Int, task_id)
         
         function test_name(result, idx)
             if name == "" # Tests that aren't in a testset
