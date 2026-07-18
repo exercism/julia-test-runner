@@ -25,6 +25,8 @@ jobs:
 
     - name: Build image
       run: docker build -t jtr-img .
+
+    - uses: julia-actions/setup-julia@fa02766e078afaaf09b14210362cee14137e6a32
     
     - name: Run test runners
       shell: julia --color=yes --project {0}
