@@ -19,6 +19,12 @@ const TMP_FIXTURES = joinpath(TEMPDIR, "fixtures")
     ])
 end
 
+@testset "Test results use the same field order" begin
+    results = test_runner("", "$TMP_FIXTURES/one_passing/")
+    expected = replace(chomp(read("$FIXTURES/one_passing/expected_results.json", String)), "\r\n" => "\n")
+    @test results == expected
+end
+
 # Shorten the error messages so we don't need to care about specific paths, file numbers, etc.
 function shorten_messages!(result)
     if result["status"] == "error" && haskey(result, "message")

@@ -59,11 +59,11 @@ function tojson(output::String, ts::ReportingTestSet)
     if length(ts.results) == 1 && ts.results[1] isa Test.Error
         # There has been a syntax error or similar and no tests have run.
         # Otherwise ts.results[1] will be a ReportingTestSet.
-        return JSON.json(Dict(
-            "version" => 3,
-            "status" => "error",
-            "message" => ts.results[1].backtrace,
-            "tests" => [],
+        return JSON.json((
+            status = "error",
+            message = ts.results[1].backtrace,
+            version = 3,
+            tests = [],
         ), 4)
     end
 
@@ -131,14 +131,15 @@ function tojson(output::String, ts::ReportingTestSet)
 
         any_failed = any_failed || status in ("fail", "error")
 
-        return push!(tests, Dict(filter( ((k, v),) -> !isnothing(v), (
-            "name" => name,
-            "status" => status,
-            "message" => message,
-            "test_code" => test_code(result),
-            "output" => output,
-            "task_id" => task_id
-        ))))
+        fields = Pair{Symbol, Any}[
+            :name => name,
+            :test_code => test_code(result),
+            :status => status,
+            :message => message,
+            :output => output,
+            :task_id => task_id,
+        ]
+        return push!(tests, (; filter(field -> !isnothing(field.second), fields)...))
     end
 
     """
@@ -179,13 +180,13 @@ function tojson(output::String, ts::ReportingTestSet)
                 code = join(map(test_code, passing_tests), '\n')
             end
 
-            push!(tests, Dict(filter(kv -> !isnothing(kv.second), (
-                "name" => collapsed_name,
-                "status" => "pass",
-                "test_code" => code,
-                "task_id" => task_id
-                )))
-            )
+            fields = Pair{Symbol, Any}[
+                :name => collapsed_name,
+                :test_code => code,
+                :status => "pass",
+                :task_id => task_id,
+            ]
+            push!(tests, (; filter(field -> !isnothing(field.second), fields)...))
 
         end
 
@@ -206,13 +207,13 @@ function tojson(output::String, ts::ReportingTestSet)
         return nothing
     end
 
-    tests = Dict{String, Union{String, SubString, Int, Nothing}}[]
+    tests = NamedTuple[]
 
     walk!(tests, "", ts)
 
-    JSON.json(Dict(
-        "version" => 3,
-        "status" => any_failed ? "fail" : "pass",
-        "tests" => tests,
+    JSON.json((
+        status = any_failed ? "fail" : "pass",
+        version = 3,
+        tests = tests,
     ), 4)
 end
