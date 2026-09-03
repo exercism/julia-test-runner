@@ -157,18 +157,18 @@ function tojson(output::String, ts::ReportingTestSet)
     end
 
     """
-        walk!(tests, prefix, testset)
+        walk!(tests, prefix, testset, inherited_task_id=nothing)
 
     Walk the tree of testsets, pushing Dicts to `tests` describing each test
     result. Returns nothing.
     """
-    function walk!(tests, prefix, testset)
+    function walk!(tests, prefix, testset, inherited_task_id=nothing)
         name = testset.verbose ? "" : isempty(prefix) ? testset.description : "$prefix » $(testset.description)"
 
         num_results = count(x -> x isa Test.Result, testset.results)
 
         task_id, name = startswith(name, r"\d+\. +") ? match(r"^(\d+)\. +(.*)", name).captures : [nothing, strip(name)]
-        task_id = isnothing(task_id) ? nothing : parse(Int, task_id)
+        task_id = isnothing(task_id) ? inherited_task_id : parse(Int, task_id)
         
         function test_name(result, idx)
             if name == "" # Tests that aren't in a testset
@@ -210,7 +210,7 @@ function tojson(output::String, ts::ReportingTestSet)
         num_reported_failures = 0
         for (n, result) in enumerate(testset.results)
             if result isa Test.AbstractTestSet
-                walk!(tests, name, result)
+                walk!(tests, name, result, task_id)
             elseif result isa Test.Pass
                 collapse_passing_tests || push_result!(tests, result, test_name(result, n), task_id)
             else
