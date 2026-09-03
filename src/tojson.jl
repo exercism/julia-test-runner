@@ -10,6 +10,20 @@ const MAX_REPORTED_FAILURES_PER_TESTSET = 5
 const MAX_REPORTED_PASSING_TEST_CODE_PER_COLLAPSE = 5
 
 """
+    error_message(result::Test.Error)
+
+Return only the diagnostic information preceding the first stack trace.
+Stack traces are omitted because they contain Julia version paths or
+standard library line numbers that can change between Julia releases.
+
+Returns the error message if there's no stack trace instead.
+"""
+function error_message(result::Test.Error)
+    message = first(split(result.backtrace, "\nStacktrace:"; limit=2))
+    isempty(message) ? result.value : message
+end
+
+"""
     tojson(output::String, ts::ReportingTestSet)
 
 Takes user output and a ReportingTestSet and converts it to a JSON string as
@@ -61,7 +75,7 @@ function tojson(output::String, ts::ReportingTestSet)
         # Otherwise ts.results[1] will be a ReportingTestSet.
         return JSON.json((
             status = "error",
-            message = ts.results[1].backtrace,
+            message = error_message(ts.results[1]),
             version = 3,
             tests = [],
         ), 4)
@@ -118,7 +132,7 @@ function tojson(output::String, ts::ReportingTestSet)
             message = string(result)
         elseif result isa Test.Error
             status = "error"
-            message = result.backtrace
+            message = error_message(result)
         elseif result isa Test.Broken
             if result.test_type === :skipped
                 return nothing
