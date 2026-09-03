@@ -36,7 +36,7 @@ Implements the interface described below.
 https://github.com/exercism/docs/blob/main/building/tooling/test-runners/interface.md
 """
 function test_runner(exercise_slug, solution_dir, output_dir)
-    write(joinpath(output_dir, "results.json"), test_runner(exercise_slug, solution_dir))
+    write(joinpath(output_dir, "results.json"), test_runner(exercise_slug, solution_dir) * '\n')
 end
 
 end
