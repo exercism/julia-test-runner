@@ -21,7 +21,7 @@ f(x) = x
     @test 1 == 1
 
     @testset "outer 3" begin
-        @test error("")
+        @test error("This is an error")
         @test true
 
         @testset "inner 4" begin

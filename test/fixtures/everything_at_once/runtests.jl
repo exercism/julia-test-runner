@@ -19,5 +19,5 @@ end
 end
 
 @testset "third test" begin
-    @test error("")
+    @test error("This is an error")
 end

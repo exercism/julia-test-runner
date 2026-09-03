@@ -19,7 +19,7 @@ f(x) = x
     end
 
     @testset "4. Fourth task name" begin
-        @test error("")
+        @test error("this is an error")
         @test true
 
         @testset "Inner 4" begin

@@ -25,7 +25,7 @@ end
 
 
 @testset "outer 3" begin
-    @test error("")
+    @test error("This is an error")
     @test true
 
     @testset "inner 4" begin
