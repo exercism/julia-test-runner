@@ -3,7 +3,7 @@ FROM julia:1.12.7 AS build-sysimage
 WORKDIR /tmp/image-builder/
 
 # PackageCompiler needs gcc or clang
-RUN apt-get update && apt-get install -y clang git
+RUN apt-get update && apt-get install -y --no-install-recommends clang git
 
 # Copy ExercismTestReports
 COPY src/ ./src/
@@ -25,7 +25,25 @@ COPY test/fixtures/everything_at_once/runtests.jl ./test/fixtures/everything_at_
 RUN julia --project=build-env -e 'using Pkg; Pkg.add("PackageCompiler"); Pkg.add(PackageSpec(path="."))'
 RUN julia --project=build-env -e 'using PackageCompiler; create_sysimage(:ExercismTestReports; sysimage_path = "test-runner-sysimage.so", precompile_execution_file="precompile_execution_file.jl", cpu_target="x86-64")'
 
-FROM julia:1.12.7
+FROM julia:1.12.7 AS pruned-julia
+
+# The runner has its own custom sysimage so we don't need the existing one.
+# There are some other miscellaneous files we don't need at runtime.
+
+RUN rm -rf \
+        /usr/local/julia/include \
+        /usr/local/julia/lib/julia/sys.so \
+        /usr/local/julia/share/doc \
+        /usr/local/julia/share/julia/test && \
+    find /usr/local/julia/share/julia/compiled \
+        -type f \( -name '*_LSldD.ji' -o -name '*_LSldD.so' \) -delete
+
+FROM debian:trixie-slim@sha256:109e2c65005bf160609e4ba6acf7783752f8502ad218e298253428690b9eaa4b AS runner
+
+ENV JULIA_PATH=/usr/local/julia \
+    PATH=/usr/local/julia/bin:$PATH
+
+COPY --from=pruned-julia /usr/local/julia/ /usr/local/julia/
 
 WORKDIR /opt/test-runner/
 
