@@ -17,9 +17,9 @@
         },
         {
             "name": "third test",
-            "test_code": "@test error(\"\")",
+            "test_code": "@test error(\"This is an error\")",
             "status": "error",
-            "message": "\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:35\n [2] macro expansion\n   @ ./runtests.jl:22 [inlined]\n [3] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:669 [inlined]\n [4] macro expansion\n   @ ./runtests.jl:22 [inlined]\n [5] macro expansion\n   @ /usr/local/julia/share/julia/stdlib/v1.10/Test/src/Test.jl:1577 [inlined]\n [6] top-level scope\n   @ ./runtests.jl:22",
+            "message": "This is an error",
             "output": "x = 1\n"
         }
     ]
