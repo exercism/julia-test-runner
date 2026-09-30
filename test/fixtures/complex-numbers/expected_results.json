@@ -97,19 +97,19 @@
             "name": "Syntax sugar jm.5",
             "test_code": "@test false",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:77\n  Expression: false\n"
+            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
         },
         {
             "name": "Syntax sugar jm.6",
             "test_code": "@test false",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:77\n  Expression: false\n"
+            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
         },
         {
             "name": "Syntax sugar jm.7",
             "test_code": "@test false",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:77\n  Expression: false\n"
+            "message": "Test Failed at ./runtests.jl:77\n  Expression: false"
         }
     ]
 }
