@@ -12,21 +12,21 @@
             "name": "First task name.2",
             "test_code": "@test 1 == 2",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:10\n  Expression: 1 == 2\n   Evaluated: 1 == 2\n",
+            "message": "Test Failed at ./runtests.jl:10\n  Expression: 1 == 2",
             "task_id": 1
         },
         {
             "name": "Second task name",
             "test_code": "@test 3 == 4",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:14\n  Expression: 3 == 4\n   Evaluated: 3 == 4\n",
+            "message": "Test Failed at ./runtests.jl:14\n  Expression: 3 == 4",
             "task_id": 2
         },
         {
             "name": "Third task name",
             "test_code": "@test 5 == 6",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:18\n  Expression: 5 == 6\n   Evaluated: 5 == 6\n",
+            "message": "Test Failed at ./runtests.jl:18\n  Expression: 5 == 6",
             "task_id": 3
         },
         {
@@ -46,7 +46,7 @@
             "name": "Fourth task name » Inner 4",
             "test_code": "@test f(5) == 6",
             "status": "fail",
-            "message": "Test Failed at ./runtests.jl:26\n  Expression: f(5) == 6\n   Evaluated: 5 == 6\n",
+            "message": "Test Failed at ./runtests.jl:26\n  Expression: f(5) == 6\n   Evaluated: 5 == 6",
             "task_id": 4
         }
     ]
