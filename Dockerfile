@@ -38,7 +38,7 @@ RUN rm -rf \
     find /usr/local/julia/share/julia/compiled \
         -type f \( -name '*_LSldD.ji' -o -name '*_LSldD.so' \) -delete
 
-FROM debian:trixie-slim@sha256:109e2c65005bf160609e4ba6acf7783752f8502ad218e298253428690b9eaa4b AS runner
+FROM debian:trixie-slim@sha256:a99cfc517144bc59b1978475ec53b46ecabec7e43635402ee5b77cc54cd1b20a AS runner
 
 ENV JULIA_PATH=/usr/local/julia \
     PATH=/usr/local/julia/bin:$PATH
