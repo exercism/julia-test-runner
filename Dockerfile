@@ -19,7 +19,7 @@ RUN git init && \
 
 # Prepare precompiliation files
 COPY precompile_execution_file.jl ./precompile_execution_file.jl
-COPY test/fixtures/everything_at_once/runtests.jl ./test/fixtures/everything_at_once/runtests.jl
+COPY test/fixtures/ ./test/fixtures/
 
 # Compile sysimage
 RUN julia --project=build-env -e 'using Pkg; Pkg.add("PackageCompiler"); Pkg.add(PackageSpec(path="."))'
