@@ -10,4 +10,4 @@ LICENSE
 README.md
 bin
 test
-!test/fixtures/everything_at_once/runtests.jl
+!test/fixtures
